@@ -1,0 +1,43 @@
+const mongoose = require('mongoose');
+
+const FetchSchema = new mongoose.Schema({
+	id : {
+		type: Number
+	},
+	userName : {
+		type: String
+	},
+	userPassword : {
+		type: String
+	},
+	userEmail : {
+		type: String
+	},
+	userLocation : {
+		type: String //zipcode
+	},
+	userSettingMiles : {
+		type: Number
+	},
+	description : {
+		type: String
+	},
+	preferences : {
+		type: [String]
+	},
+	matches : {
+		type: [String]
+	},
+	images : {
+		type: [String]
+	},
+	animalGender : {
+		type: Boolean // ture for female, false for male
+	},
+	animalBreed : {
+		type: String
+	}
+})
+
+const Fetch = mongoose.model('fetchs', FetchSchema);
+module.exports = Fetch;
