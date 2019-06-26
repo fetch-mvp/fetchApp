@@ -1,10 +1,25 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Image } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Image,
+  ImageBackground
+} from 'react-native';
+import { Pages } from 'react-native-pages';
 
 export default class Bio extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      user: {},
+      images: [
+        'https://mvp-fetch-app.s3-us-west-1.amazonaws.com/Dog+Pictures/corgi.jpg',
+        'https://mvp-fetch-app.s3-us-west-1.amazonaws.com/Dog+Pictures/corgi.jpg',
+        'https://mvp-fetch-app.s3-us-west-1.amazonaws.com/Dog+Pictures/corgi.jpg'
+      ]
+    };
   }
 
   render() {
@@ -13,20 +28,21 @@ export default class Bio extends React.Component {
     return (
       <View>
         <Text style={styles.profile}>Profile</Text>
+
         <View style={styles.imageContainer}>
           <Image
             source={{ uri: `${this.props.user.images[0]}` }}
             style={styles.image}
           />
         </View>
+
         <View>
-          <Text style={styles.textContainer}>{this.props.user.userName}</Text>
+          <Text style={styles.name}>{this.props.user.userName}</Text>
           <View style={styles.textbox}>
             <Text style={styles.textContainer2}>
-              {' '}
               My name is {this.props.user.userName}. Who be you? if you be cool
               we can rule...the world that is because together we can move
-              mountains...or just hike them. I like hiking. You might think, but{' '}
+              mountains...or just hike them. I like hiking. You might think, but
               {this.props.user.userName}, you don't have that much strength in
               your back legs to hike mountains" to which I reply "Dang that's
               what rest is for! And physical therapy yo!We hike one day. We rest
@@ -51,10 +67,11 @@ const styles = StyleSheet.create({
     width: 400,
     marginTop: 20
   },
-  textContainer: {
+  name: {
     justifyContent: 'center',
     paddingTop: 370,
     paddingBottom: 20,
+    paddingLeft: 10,
     fontSize: 30,
     fontFamily: 'GillSans-SemiBoldItalic',
     color: '#3EC1E1'
