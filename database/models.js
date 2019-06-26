@@ -23,10 +23,10 @@ const FetchSchema = new mongoose.Schema({
 		type: String
 	},
 	preferences : {
-		type: [String]
+		type: [Number]
 	},
 	matches : {
-		type: [String]
+		type: [Number]
 	},
 	images : {
 		type: [String]
