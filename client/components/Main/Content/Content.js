@@ -16,7 +16,7 @@ const Content = ({route, user, changeRoute, changeInterestedDog, interestedDog})
     } else if (route === 'swipe') {
       return <Swipe changeInterestedDog = {changeInterestedDog} changeRoute = {changeRoute} user={user}/>
     } else if (route === 'detail') {
-      return <Detail interestedDog = {interestedDog}changeRoute = {changeRoute} user={user}/>
+      return <Detail interestedDog = {interestedDog} changeRoute = {changeRoute} user={user}/>
     } else if (route === 'match') {
       return <Match user={user}/>
     } else if (route === 'chat') {
