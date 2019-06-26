@@ -9,18 +9,21 @@ export default class Main extends React.Component {
     super(props)
     this.state={
       user: {},
-      route: 'match', //'setting', 'bio', 'swipe', 'detail', 'match', 'chat'
+      route: 'bio', //'setting', 'bio', 'swipe', 'detail', 'match', 'chat'
       userinfo: [],
       allusers: [],
       matches: [],
     }
   }
 
+  handleRouteChange = (route) => {
+    this.setState({route})
+  }
+
   render(){
-    // console.log("Main component : ", this.props.user)
     return (
-      <View >
-        {/* <Nav /> */}
+      <View style={{height: '100%'}}>
+        <Nav route={this.state.route} handleRouteChange={this.handleRouteChange}/>
         <Content route={this.state.route} user={this.props.user}/>
       </View>
     );
