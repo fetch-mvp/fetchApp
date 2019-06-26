@@ -1,13 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 import { Button, StyleSheet, Text, View } from 'react-native';
-import Constants from 'expo-constants';
 
 export default class Login extends React.Component {
   constructor(){
     super()
     this.state={
-      user: null
+      user: null,
+      matches: [],
     }
   }
 
@@ -18,15 +18,15 @@ export default class Login extends React.Component {
     .catch(e=> console.log(e))
   }
 
+  
+
+
   render(){
     return (
       <View style={styles.container}>
       <View style={styles.button}>
-        <Button  onPress={() => this.props.handleLogin(this.state.user)}
-            title="Login"
-          />
+        <Button  onPress={() => this.props.handleLogin(this.state.user)} title="Login" />
         </View>
-      </View>
       </View>
     );
   }
