@@ -11,20 +11,30 @@ export default class Bio extends React.Component {
 
   render() {
     console.log(this.props.user);
-    const { photo } = this.state;
+
     return (
       <View>
+        <Text style={styles.profile}>Profile</Text>
         <View style={styles.imageContainer}>
           <Image
             source={{ uri: `${this.props.user.images[0]}` }}
-            style={{ width: 400, height: 350 }}
+            style={styles.image}
           />
         </View>
         <View>
           <Text style={styles.textContainer}>
             Name: {this.props.user.userName}
           </Text>
-          <Text> Description</Text>
+          <Text>
+            {' '}
+            My name is Bertha. Who be you? if you be cool we can rule...the
+            world that is because together we can move mountains...or just hike
+            them. I like hiking. You might think, but EmmyLou, you don't have
+            that much strength in your back legs to hike mountains" to which I
+            reply "Dang that's what rest is for! And physical therapy yo!We hike
+            one day. We rest two. You and me. Together. Forever. Hit me up. P.S.
+            that's me-the hot beagle Boston mix in the middle. With my homies.{' '}
+          </Text>
         </View>
       </View>
     );
@@ -35,20 +45,30 @@ const styles = StyleSheet.create({
   imageContainer: {
     flex: 1,
     // alignContent: 'stretch',
-    marginTop: 30,
+    // marginTop: 20,
     paddingLeft: 1,
     paddingRight: 1
   },
-
+  image: {
+    height: 350,
+    width: 400,
+    marginTop: 20
+  },
   textContainer: {
     justifyContent: 'center',
-    marginBottom: 50
+    paddingTop: 370,
+    paddingBottom: 50
+  },
+  profile: {
+    color: 'blue',
+    alignSelf: 'center',
+    paddingTop: 20,
+    fontSize: 50,
+    fontFamily: 'GillSans-SemiBoldItalic'
   }
-});
 
-// {photo && (
-//   <Image
-//     source={{ uri: photo.uri }}
-//     style={{ width: 300, height: 300 }}
-//   />
-// )}
+  // textContainer2: {
+  //   justifyContent: 'center',
+  //   marginBottom: 400
+  // }
+});
