@@ -10,12 +10,12 @@ export default class Fetch extends React.Component {
     this.state={
       login: false,
       user: {}
-    }
+    };
   }
 
-  handleLogin = (user) => {
-    this.setState({login:true, user})
-  }
+  handleLogin = user => {
+    this.setState({ login: true, user });
+  };
 
   render(){
     return (

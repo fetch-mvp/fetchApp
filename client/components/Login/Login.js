@@ -10,17 +10,17 @@ export default class Login extends React.Component {
     super(props)
     this.state={
       user: null
-    }
+    };
   }
 
   componentDidMount(){
     let randomUser = Math.floor(Math.random()*20)
     axios(`http://localhost:3000/api/james/?id=${randomUser}`)
-    .then(data=> this.setState({user: data.data}))
-    .catch(e=> console.log(e))
+      .then(data => this.setState({ user: data.data }))
+      .catch(e => console.log(e));
   }
 
-  render(){
+  render() {
     return (
     <ImageBackground source={{uri: corgi}} style={{width: '100%', height: '100%'}}>
           <View style={styles.loginButton}>
@@ -49,3 +49,4 @@ const styles = StyleSheet.create({
     width: '100%'
   }
 })
+
