@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Button, StyleSheet, Text, View } from 'react-native';
+import Constants from 'expo-constants';
 
 export default class Login extends React.Component {
   constructor(){
@@ -24,6 +25,7 @@ export default class Login extends React.Component {
         <Button  onPress={() => this.props.handleLogin(this.state.user)}
             title="Login"
           />
+        </View>
       </View>
       </View>
     );
@@ -35,3 +37,4 @@ const styles = StyleSheet.create({
     paddingTop: 200,
   }
 })
+
