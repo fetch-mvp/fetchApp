@@ -90,6 +90,6 @@ const styles = StyleSheet.create({
   },
   statusbar : {
     backgroundColor: 'white',
-    height: 20
+    height: 30
   }
 })
