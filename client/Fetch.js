@@ -10,23 +10,25 @@ export default class Fetch extends React.Component {
     this.state={
       login: false,
       user: {}
-    }
+    };
   }
 
-  handleLogin = (user) => {
-    this.setState({login:true, user})
-  }
+  handleLogin = user => {
+    this.setState({ login: true, user });
+  };
 
-  render(){
-    const statusBar = (Platform.OS === 'ios') && <View style={styles.statusBar}></View>
+  render() {
+    const statusBar = Platform.OS === 'ios' && (
+      <View style={styles.statusBar} />
+    );
     return (
       <View style={styles.container}>
         {statusBar}
-        {
-          (!this.state.login)
-          ? <Login handleLogin={this.handleLogin}/>
-          : <Main user={this.state.user}/>
-        }
+        {!this.state.login ? (
+          <Login handleLogin={this.handleLogin} />
+        ) : (
+          <Main user={this.state.user} />
+        )}
       </View>
     );
   }
@@ -41,4 +43,4 @@ const styles = StyleSheet.create({
   statusBar: {
     height: 20
   }
-})
+});

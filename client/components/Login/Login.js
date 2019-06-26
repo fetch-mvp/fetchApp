@@ -4,21 +4,21 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 import Constants from 'expo-constants';
 
 export default class Login extends React.Component {
-  constructor(){
-    super()
-    this.state={
+  constructor() {
+    super();
+    this.state = {
       user: null
-    }
+    };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     let randomUser = 1;
     axios(`http://localhost:3000/api/james/?id=${randomUser}`)
-    .then(data=> this.setState({user: data.data}))
-    .catch(e=> console.log(e))
+      .then(data => this.setState({ user: data.data }))
+      .catch(e => console.log(e));
   }
 
-  render(){
+  render() {
     return (
       <View style={styles.container}>
       <View style={styles.button}>
