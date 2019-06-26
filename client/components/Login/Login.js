@@ -19,11 +19,19 @@ export default class Login extends React.Component {
 
   render(){
     return (
-      <View>
-        <Button onPress={() => this.props.handleLogin(this.state.user)}
+      <View style={styles.container}>
+      <View style={styles.button}>
+        <Button  onPress={() => this.props.handleLogin(this.state.user)}
             title="Login"
           />
+      </View>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  button: {
+    paddingTop: 200,
+  }
+})
