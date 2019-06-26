@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Button, ImageBackground } from 'react-native';
 import Swiper from "react-native-deck-swiper";
 
 export default class Swipe extends React.Component {
+
     constructor(props) {
       super(props);
   
@@ -238,3 +239,4 @@ export default class Swipe extends React.Component {
     }
   });
   
+

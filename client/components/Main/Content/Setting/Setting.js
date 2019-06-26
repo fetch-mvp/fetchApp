@@ -13,10 +13,10 @@ export default class Setting extends React.Component {
   }
 
   render() {
-    // return (
-    // )
-    <View>
-      <Text> Test</Text>
-    </View>;
+    return (
+      <View>
+        <Text>Setting</Text>
+      </View>
+    );
   }
 }
