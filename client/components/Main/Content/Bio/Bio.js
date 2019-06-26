@@ -2,11 +2,9 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, Image } from 'react-native';
 
 export default class Bio extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      photo: null
-    };
+  constructor(props){
+    super(props)
+    this.state={}
   }
 
   render() {

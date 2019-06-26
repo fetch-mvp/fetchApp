@@ -5,9 +5,9 @@ import Login from './components/Login/Login';
 import Main from './components/Main/Main';
 
 export default class Fetch extends React.Component {
-  constructor() {
-    super();
-    this.state = {
+  constructor(props){
+    super(props)
+    this.state={
       login: false,
       user: {}
     };
@@ -36,13 +36,11 @@ export default class Fetch extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    // backgroundColor: '#fff'
     // alignItems: 'center',
-    // justifyContent: 'center'
+    // justifyContent: 'center',
+    // paddingTop:100
   },
   statusBar: {
-    // backgroundColor: '#FFCE00',
     height: 20
   }
 });
