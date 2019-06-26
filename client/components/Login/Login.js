@@ -20,36 +20,21 @@ export default class Login extends React.Component {
 
   render(){
     return (
-      <View>
-        <View style={{backgroundColor: 'white'}}>
-        <Text>   </Text>
-        <Text>   </Text>
-        <Text>   </Text>
-        <Text>   </Text>
-        <Text>   </Text>
-        <Text>   </Text>
-        <Text>   </Text>
-        <Text>   </Text>
-        <Text>   </Text>
-        <Text>   </Text>
-        <Text>   </Text>
-        <Text>   </Text>
-        <Button onPress={() => this.props.handleLogin(this.state.user)}
+      <View style={styles.container}>
+      <View style={styles.button}>
+        <Button  onPress={() => this.props.handleLogin(this.state.user)}
             title="Login"
           />
         </View>
+      </View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container2: {
-    flex: 1,
-    paddingTop : Constants.statusBarHeight,
-    backgroundColor: 'orange',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column'
+  button: {
+    paddingTop: 200,
   }
 })
+
