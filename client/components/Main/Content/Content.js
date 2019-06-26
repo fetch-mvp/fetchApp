@@ -8,20 +8,19 @@ import Detail from './Detail/Detail';
 import Match from './Match/Match';
 import Chat from './Chat/Chat';
 
-const Content = () => {
-    let {route} = this.props
+const Content = ({route, user}) => {
     if (route === 'bio') {
-      return <Bio user={this.props.user}/>
+      return <Bio user={user}/>
     } else if (route === 'setting') {
-      return <Setting user={this.props.user}/>
+      return <Setting user={user}/>
     } else if (route === 'swipe') {
-      return <Swipe user={this.props.user}/>
+      return <Swipe user={user}/>
     } else if (route === 'detail') {
-      return <Detail user={this.props.user}/>
+      return <Detail user={user}/>
     } else if (route === 'match') {
-      return <Match user={this.props.user}/>
+      return <Match user={user}/>
     } else if (route === 'chat') {
-      return <Chat user={this.props.user}/>
+      return <Chat user={user}/>
     }
 }
 export default Content;
