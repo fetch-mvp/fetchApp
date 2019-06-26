@@ -1,10 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import ReactNativeSettingsPage, {
-  SectionRow,
-  NavigateRow,
-  CheckRow
-} from 'react-native-settings-page';
 
 export default class Setting extends React.Component {
   constructor() {
@@ -15,7 +10,7 @@ export default class Setting extends React.Component {
   render() {
     return (
       <View>
-        <Text>Setting</Text>
+        <Text> Test</Text>
       </View>
     );
   }
