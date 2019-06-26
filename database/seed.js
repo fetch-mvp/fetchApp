@@ -27,6 +27,15 @@ const pics = [
   "https://mvp-fetch-app.s3-us-west-1.amazonaws.com/Dog+Pictures/siberian-husky-price.jpg"
 ];
 
+let matchesGen = (i) => {
+  let samples = (i % 2 === 0) ? [1,3,5,7,9,11,13,15,17,19] : [2,4,6,8,10,12,14,16,18,20]
+  let a = Math.floor((Math.random() * 10))
+  let b = Math.floor((Math.random() * 10))
+  let c = Math.floor((Math.random() * 10))
+  let d = Math.floor((Math.random() * 10))
+  return [...new Set([samples[a],samples[b],samples[c],samples[d]])]
+}
+
 let container = []
 const dataGenerator = () => {
   for (let i = 0; i < 20; i++) {
@@ -37,8 +46,10 @@ const dataGenerator = () => {
       userEmail: faker.internet.email(),
       userLocation: faker.address.zipCode(),
       userSettingMiles: (i % 2) ? 10 : 5,
+      preferences: (i % 2 === 0) ? [1,3,5,7,9,11,13,15,17,19] : [2,4,6,8,10,12,14,16,18,20],
+      matches: matchesGen(i),
       images: [pics[i]],
-      animalGender: (i % 2) ? true : false
+      animalGender: (i % 2 === 0) ? true : false
     }
     container.push(oneDoc)
   }
