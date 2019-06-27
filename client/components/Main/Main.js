@@ -10,7 +10,7 @@ export default class Main extends React.Component {
     super(props)
     this.state={
       user: {}, // Calvin: looks like it doesn't do anything?
-      route: 'bio', //'setting', 'bio', 'swipe', 'detail', 'match', 'chat'
+      route: 'match', //'setting', 'bio', 'swipe', 'detail', 'match', 'chat'
       interestedDog: {},
       userinfo: [],
       allusers: [],
@@ -34,7 +34,7 @@ export default class Main extends React.Component {
         let currUser = res.data.filter(x=>(x._id===that.props.user._id))[0];
         that.setState({queue: res.data.filter(x=>(x._id!==that.props.user._id && (!currUser.swiped.includes(x._id))))})
 
-        console.log('most updated curr user: ', res.data.filter(x=>(x._id===that.props.user._id))[0])
+        // console.log('most updated curr user: ', res.data.filter(x=>(x._id===that.props.user._id))[0])
         // todo: also filter the gender and the distance.. (need an API to calculate distance)
       })
       .catch(function(error) {
@@ -60,7 +60,7 @@ export default class Main extends React.Component {
     return (
       <View style={{height: '100%'}}>
         <Nav route={this.state.route} handleRouteChange={this.handleRouteChange}/>
-        <Content refreshQueue={this.refreshQueue} allusers = {this.props.allusers} queue = {this.state.queue} interestedDog = {this.state.interestedDog} changeInterestedDog = {this.changeInterestedDog} changeRoute = {this.changeRoute} route={this.state.route} user={this.props.user}/>
+        <Content refreshQueue={this.refreshQueue} allusers = {this.props.allusers} queue = {this.state.queue} interestedDog = {this.state.interestedDog} changeInterestedDog = {this.changeInterestedDog} changeRoute = {this.changeRoute} route={this.state.route} user={this.props.user} currentMatches={this.props.currentMatches}/>
       </View>
     );
   }

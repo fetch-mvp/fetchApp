@@ -12,31 +12,40 @@ export default class Fetch extends React.Component {
     this.state={
       login: false,
       user: {},
-      allusers: [],
     }
+    this.getCurrentMatches = this.getCurrentMatches.bind(this);
   }
+
 
   handleLogin = (user) => {
-    this.setState({login:true, user},
-      () => this.getAllUsers())
+    this.setState({login:true, user})
   }
 
-  getAllUsers = () => {
-    axios.get('http://localhost:3000/api/gabi/getall')
-      .then(data => this.setState({
-        allusers: data.data
-      }))
-      .catch(err => console.error(err))
+  getCurrentMatches() {
+    let id = this.props.user._id
+    let that = this;
+
+    axios
+      .get(`http://localhost:3000/api/gabi/getall`)
+      .then(res => {
+        let currentMatches = res.data.filter(x => (x._id === id ))[0].matches; 
+        let matchedUsers = res.data.filter(x => currentMatches.includes(x.id));
+        
+        this.setState({
+          matches: matchedUsers
+        })
+      })
+      .catch(err => console.log(err))
   }
 
   render(){
-    
+
     return (
       <View style={{height: '100%'}}>
         {
           (!this.state.login)
           ? <Login handleLogin={this.handleLogin}/>
-          : <Main user={this.state.user} allusers={this.state.allusers}/>
+          : <Main user={this.state.user} currentMatches={this.state.getCurrentMatches}/>
         }
       </View>
     );

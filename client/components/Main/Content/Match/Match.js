@@ -10,25 +10,41 @@ export default class Match extends React.Component {
     super(props);
     this.state = {
       chat: null,
+      matches: [],
     }
+    this.getCurrentMatches = this.getCurrentMatches.bind(this);
   }
 
-  getCurrentMatches = () => {
-    let userid = this.props.user.id
-    
+  componentDidMount() {
+    this.getCurrentMatches()
+  }
+
+  getCurrentMatches() {
+    let id = this.props.user._id
+    let that = this;
+
     axios
-      .get()
+      .get(`http://localhost:3000/api/gabi/getall`)
+      .then(res => {
+        let currentMatches = res.data.filter(x => (x._id === id ))[0].matches; 
+        let matchedUsers = res.data.filter(x => currentMatches.includes(x.id));
+        
+        this.setState({
+          matches: matchedUsers
+        })
+      })
+      .catch(err => console.log(err))
   }
 
   render() {
-    if (this.props.length > 0) {
+    if (this.state.matches.length > 0) {
       return (
         <View>
           <Text style={styles.title}>Matches</Text>
           <ScrollView>
-            {this.props.matches.map((match, key) => {
+            {this.state.matches.map((match, key) => {
               return <View style={styles.container} key={key}>
-                <Image style={styles.images} source={{ uri: `${match.images[0]}` }} onPress={() => this.grabCurrentChat()}/>
+                <Image style={styles.images} source={{ uri: `${match.images[0]}` }} onPress={() => this.grabCurrentChat()} />
                 <Text style={styles.username} >{match.userName}</Text>
               </View>
             })}
