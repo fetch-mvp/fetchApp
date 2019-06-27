@@ -4,6 +4,7 @@ import Nav from './Nav/Nav';
 import Content from './Content/Content';
 import axios from "axios";
 
+
 export default class Main extends React.Component {
   constructor(props){
     super(props)
@@ -49,7 +50,7 @@ export default class Main extends React.Component {
     return (
       <View style={{height: '100%'}}>
         <Nav route={this.state.route} handleRouteChange={this.handleRouteChange}/>
-        <Content queue = {this.state.queue} interestedDog = {this.state.interestedDog} changeInterestedDog = {this.changeInterestedDog} changeRoute = {this.changeRoute} route={this.state.route} user={this.props.user}/>
+        <Content matches = {this.props.matches} queue = {this.state.queue} interestedDog = {this.state.interestedDog} changeInterestedDog = {this.changeInterestedDog} changeRoute = {this.changeRoute} route={this.state.route} user={this.props.user}/>
       </View>
     );
   }
