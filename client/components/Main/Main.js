@@ -9,11 +9,8 @@ export default class Main extends React.Component {
     super(props)
     this.state={
       user: {},
-      route: 'bio', //'setting', 'bio', 'swipe', 'detail', 'match', 'chat'
+      route: 'match', //'setting', 'bio', 'swipe', 'detail', 'match', 'chat'
       interestedDog: {},
-      userinfo: [],
-      allusers: [],
-      matches: [],
     }
     this.changeRoute = this.changeRoute.bind(this);
     this.changeInterestedDog = this.changeInterestedDog.bind(this);  
@@ -32,10 +29,11 @@ export default class Main extends React.Component {
   }
 
   render(){
+  
     return (
       <View style={{height: '100%'}}>
         <Nav route={this.state.route} handleRouteChange={this.handleRouteChange}/>
-        <Content interestedDog = {this.state.interestedDog} changeInterestedDog = {this.changeInterestedDog} changeRoute = {this.changeRoute} route={this.state.route} user={this.props.user}/>
+        <Content matches={this.props.matches} interestedDog = {this.state.interestedDog} changeInterestedDog = {this.changeInterestedDog} changeRoute = {this.changeRoute} route={this.state.route} user={this.props.user}/>
       </View>
     );
   }

@@ -1,6 +1,6 @@
 import React from 'react'; 
 import { StyleSheet, Text, View, Button, ImageBackground } from 'react-native';
-import Swiper from "react-native-deck-swiper";
+// import Swiper from "react-native-deck-swiper";
 
 export default class Swipe extends React.Component {
 
@@ -171,7 +171,7 @@ export default class Swipe extends React.Component {
     render() {
       return (
         <View style={styles.container}>
-          <Swiper
+          {/* <Swiper
             cards={this.state.pets}
             renderCard={card => {
               return (
@@ -207,7 +207,7 @@ export default class Swipe extends React.Component {
             stackSize={3}
             disableTopSwipe={true}
             disableBottomSwipe={true}
-          />
+          /> */}
         </View>
       );
     }
