@@ -8,7 +8,7 @@ const multer = require('multer');
 //Image Uploading Storage
 const Storage = multer.diskStorage({
   destination(req, file, callback) {
-    console.log('==>', file);
+    // console.log('==>', file);
     callback(null, './images');
   },
   filename(req, file, callback) {
@@ -19,11 +19,25 @@ const Storage = multer.diskStorage({
 const upload = multer({ storage: Storage });
 
 routes.post('/upload', upload.array('photo', 1), (req, res) => {
-  console.log('file', req.files);
-  console.log('body', req.body);
+  let uri = req.body.photo._parts[0][1]; // {uri: link }
+  let _id = req.body.photo._parts[1][1]; // id
+  console.log('thisisisissi', req.body.photo._parts[1][1]); // gets ID
   res.status(200).json({
     message: 'success!'
   });
+  Fetch.updateOne(
+    { _id: new ObjectID(_id) },
+    { $set: { uri } },
+    (err, data) => {
+      if (err) {
+        res.status(404).send(err);
+      } else {
+        Fetch.findOne({ _id: new ObjectID(_id) }, (err, info) => {
+          res.status(200).send(info);
+        });
+      }
+    }
+  );
 });
 
 //Routers
@@ -38,7 +52,7 @@ routes.get('/', (req, res) => {
   });
 });
 
-routes.put('/api/:_id', (req, res) => {
+routes.put('/:_id', (req, res) => {
   let {
     username,
     password,
@@ -69,3 +83,23 @@ routes.put('/api/:_id', (req, res) => {
   );
 });
 module.exports = routes;
+
+// let uri = eq.body.photo._parts[0][1]; // {uri: link }
+// let _id = req.body.photo._parts[1][1]; // id
+// console.log('thisisisissi', req.body.photo._parts[1][1]); // gets ID
+// res.status(200).json({
+//   message: 'success!'
+// });
+// Fetch.updateOne(
+//   { _id: new ObjectID(_id) },
+//   { $set: { uri } },
+//   (err, data) => {
+//     if (err) {
+//       res.status(404).send(err);
+//     } else {
+//       Fetch.findOne({ _id: new ObjectID(_id) }, (err, info) => {
+//         res.status(200).send(info);
+//       });
+//     }
+//   }
+// );
