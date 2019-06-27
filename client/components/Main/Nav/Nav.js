@@ -1,5 +1,6 @@
 import React from 'react';
 import { Platform, Button, StyleSheet, Text, View } from 'react-native';
+import Bio from '../Content/Bio/Bio.js';
 
 export default class Nav extends React.Component {
   constructor(props) {
@@ -52,7 +53,7 @@ export default class Nav extends React.Component {
         </View>
       );
     } else if (route === 'detail') {
-      return <View />;
+      return <View>{statusbar}</View>;
     } else if (route === 'match') {
       return (
         <View style={styles.NavBarStyle}>

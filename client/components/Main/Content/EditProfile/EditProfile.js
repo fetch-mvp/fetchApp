@@ -15,25 +15,25 @@ export default class EditProfile extends React.Component {
     return (
       <View>
         <Text>Edit Profile</Text>
-
-        <TextInput
-          placeholder="Edit Name"
-          onChangeText={text =>
-            this.setState({
-              username: text
-            })
-          }
-        />
-
-        <TextInput
-          placeholder="description"
-          onChangeText={text => {
-            this.setState({
-              description: text
-            });
-          }}
-        />
       </View>
     );
   }
 }
+
+//   <TextInput
+// placeholder="Edit Name"
+// onChangeText={text =>
+//   this.setState({
+//     username: text
+//   })
+// }
+// />
+
+// <TextInput
+// placeholder="description"
+// onChangeText={text => {
+//   this.setState({
+//     description: text
+//   });
+// }}
+// />

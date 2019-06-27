@@ -7,17 +7,24 @@ import Swipe from './Swipe/Swipe';
 import Detail from './Detail/Detail';
 import Match from './Match/Match';
 import Chat from './Chat/Chat';
-import EditProfile from './EditProfile/EditProfile.js';
+import { EditProfile } from './EditProfile/EditProfile.js';
 
 const Content = ({
   route,
   user,
   changeRoute,
   changeInterestedDog,
-  interestedDog
+  interestedDog,
+  handleRouteChange
 }) => {
   if (route === 'bio') {
-    return <Bio user={user} />;
+    return (
+      <Bio
+        user={user}
+        changeRoute={changeRoute}
+        handleRouteChange={handleRouteChange}
+      />
+    );
   } else if (route === 'setting') {
     return <Setting user={user} />;
   } else if (route === 'swipe') {
@@ -38,9 +45,9 @@ const Content = ({
     );
   } else if (route === 'match') {
     return <Match user={user} />;
-  } else if (route === 'editprofile') {
-    return <EditProfile />;
-  } else {
+  } else if (route === 'edit') {
+    return <EditProfile user={user} />;
+  } else if (route === 'chat') {
     return <Chat user={user} />;
   }
 };

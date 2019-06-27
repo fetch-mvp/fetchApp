@@ -50,7 +50,10 @@ export default class Bio extends React.Component {
             </Text>
           </View>
         </View>
-        <Button title="Edit Profile" />
+        <Button
+          title="Edit Profile"
+          onPress={() => this.props.changeRoute('edit')}
+        />
       </View>
     );
   }
