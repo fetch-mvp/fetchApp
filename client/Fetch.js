@@ -16,6 +16,7 @@ export default class Fetch extends React.Component {
     }
     this.getAllUsers = this.getAllUsers.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    this.getAllMatches = this.getAllMatches.bind(this);
   }
 
   handleLogin = (user) => {
@@ -41,6 +42,7 @@ export default class Fetch extends React.Component {
         this.setState({
           matches: arr
         })
+        console.log(this.state.matches)
       })
       .catch(err => console.error(err))
   }
@@ -75,7 +77,7 @@ export default class Fetch extends React.Component {
         {
           (!this.state.login)
           ? <Login handleLogin={this.handleLogin}/>
-          : <Main getAllMatches= {this.getAllMatches} user={this.state.user} matches={this.state.matches}/>
+          : <Main user={this.state.user} matches={this.state.matches}/>
         }
       </View>
     );
