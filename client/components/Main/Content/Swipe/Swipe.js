@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, Button, ImageBackground } from "react-native";
 import Swiper from "react-native-deck-swiper";
-import axios from "axios";
 
 export default class Swipe extends React.Component {
   constructor(props) {
