@@ -2,7 +2,6 @@ const routes = require('express').Router()
 const Fetch = require('../../database/models')
 
 routes.get('/getone', (req,res)=> {
-	let randomNumber = Math.floor(Math.random() * 11)
 	// const { id } = req.query { "id": Number(id) }
 	Fetch.findOne({'id': randomNumber}).exec((err, docs)=> {
 		if (err) {

@@ -11,15 +11,17 @@ export default class Match extends React.Component {
     this.state = {
       chat: null,
     }
-    this.grabCurrentChat = this.grabCurrentChat.bind(this);
   }
 
-  grabCurrentChat() {
-
+  getCurrentMatches = () => {
+    let userid = this.props.user.id
+    
+    axios
+      .get()
   }
 
   render() {
-    if (this.props.matches.length > 0) {
+    if (this.props.length > 0) {
       return (
         <View>
           <Text style={styles.title}>Matches</Text>
