@@ -27,7 +27,6 @@ export default class Main extends React.Component {
       .get("http://localhost:3000/api/calvin/getAll")
       .then(function(res) {
         that.setState({queue: res.data})
-        console.log('this is the state: ', that.state)
       })
       .catch(function(error) {
         console.log(error);
