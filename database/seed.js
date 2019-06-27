@@ -55,11 +55,12 @@ const dataGenerator = () => {
       userEmail: faker.internet.email(),
       userLocation: faker.address.zipCode(),
       userSettingMiles: i % 2 ? 10 : 5,
-      preferences:
-        i % 2 === 0
-          ? [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
-          : [2, 4, 6, 8, 10, 12, 14, 16, 18, 20],
-      matches: matchesGen(i),
+      preferences: [],
+        // i % 2 === 0
+        //   ? [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+        //   : [2, 4, 6, 8, 10, 12, 14, 16, 18, 20],
+      // matches: matchesGen(i),
+      matches: [],
       images: [pics[i], pics[Math.floor(Math.random()*20)], pics[Math.floor(Math.random()*20)]],
       animalGender: i % 2 === 0 ? true : false,
       description: faker.lorem.sentence(),

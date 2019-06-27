@@ -59,58 +59,63 @@ export default class Swipe extends React.Component {
       <View style={styles.container}>
       <View style={{position: 'absolute', left: "2%", top: "3%", zIndex: 1}}><Button onPress = {()=>{this.props.changeRoute('bio'); this.props.refreshQueue();}} title="Profile" /></View>
       <View style={{position: 'absolute', right: "2%", top: "3%", zIndex: 1}}><Button onPress = {()=>{this.props.changeRoute('match'); this.props.refreshQueue();}} title="Matches" /></View>
-        <Swiper
-          cards={this.props.queue}
-          renderCard={card => {
-            return (
-              <View style={styles.card}>
-                <ImageBackground
-                  source={{ uri: card.images[0] }}
-                  style={{ width: "100%", height: "100%" }}
-                >
-                  <Text style={styles.text}>{card.userName}</Text>
-                  <View style={styles.button}>
-                    <Button
-                      color="black"
-                      onPress={() => {
-                        this.props.changeRoute("detail");
-                        this.props.changeInterestedDog(card);
-                        console.log(card._id);
-                      }}
-                      title="More Info"
-                    />
-                  </View>
-                </ImageBackground>
-              </View>
-            );
-          }}
-          onSwipedLeft={cardIndex => {
-            console.log('you are: ', this.props.user.id)
-          this.pushSwipe(this.props.user._id, this.props.queue[cardIndex]._id)
-            console.log('you hate this dog: ', this.props.queue[cardIndex].userName);
-          }}
-          onSwipedRight={cardIndex => {
-            this.pushSwipe(this.props.user._id, this.props.queue[cardIndex]._id);
-            this.pushPreferences(this.props.user._id, this.props.queue[cardIndex].id)
-            console.log('you love this dog: ', this.props.queue[cardIndex].userName);
-            if (this.props.queue[cardIndex].preferences.includes(this.props.user.id)){
-              // this is a match!!
-              console.log(`there is a match between: ${this.props.user.id} and ${this.props.queue[cardIndex].id}`)
-              this.addMatches(this.props.user._id, this.props.queue[cardIndex].id);
-              this.addMatches(this.props.queue[cardIndex]._id, this.props.user.id);
-              // so a pop up
-            }
-
-          }}
-          onSwipedAll={() => {
-            console.log("you swiped everyone!");
-          }}
-          cardIndex={0}
-          backgroundColor={"black"}
-          stackSize={3}
-          disableTopSwipe={true}
-          disableBottomSwipe={true}
-        />
+        
+      {
+          (this.props.queue.length>0)?  
+          <Swiper
+            cards={this.props.queue}
+            renderCard={card => {
+              return (
+                <View style={styles.card}>
+                  <ImageBackground
+                    source={{ uri: card.images[0] }}
+                    style={{ width: "100%", height: "100%" }}
+                  >
+                    <Text style={styles.text}>{card.userName}</Text>
+                    <View style={styles.button}>
+                      <Button
+                        color="black"
+                        onPress={() => {
+                          this.props.changeRoute("detail");
+                          this.props.changeInterestedDog(card);
+                          console.log(card._id);
+                        }}
+                        title="More Info"
+                      />
+  
+                    </View>
+                  </ImageBackground>
+                </View>
+              );
+            }}
+            onSwipedLeft={cardIndex => {
+              console.log('you are: ', this.props.user.id)
+            this.pushSwipe(this.props.user._id, this.props.queue[cardIndex]._id)
+              console.log('you hate this dog: ', this.props.queue[cardIndex].userName);
+            }}
+            onSwipedRight={cardIndex => {
+              this.pushSwipe(this.props.user._id, this.props.queue[cardIndex]._id);
+              this.pushPreferences(this.props.user._id, this.props.queue[cardIndex].id)
+              console.log('you love this dog: ', this.props.queue[cardIndex].userName);
+              if (this.props.queue[cardIndex].preferences.includes(this.props.user.id)){
+                // this is a match!!
+                console.log(`there is a match between: ${this.props.user.id} and ${this.props.queue[cardIndex].id}`)
+                this.addMatches(this.props.user._id, this.props.queue[cardIndex].id);
+                this.addMatches(this.props.queue[cardIndex]._id, this.props.user.id);
+                // so a pop up
+              }
+  
+            }}
+            onSwipedAll={() => {
+              console.log("you swiped everyone!");
+            }}
+            cardIndex={0}
+            backgroundColor={"black"}
+            stackSize={3}
+            disableTopSwipe={true}
+            disableBottomSwipe={true}
+          /> : <View></View>
+        }
       </View>
     );
   }
