@@ -1,67 +1,89 @@
 import React from "react";
 import { StyleSheet, Text, View, Button, ImageBackground } from "react-native";
 import Swiper from "react-native-deck-swiper";
-import axios from "axios"; 
+import axios from "axios";
 
 export default class Swipe extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-    };
-    this.pushSwipe = this.pushSwipe.bind(this); 
+    this.state = {};
+    this.pushSwipe = this.pushSwipe.bind(this);
     this.pushPreferences = this.pushPreferences.bind(this);
-    this.addMatches = this.addMatches.bind(this); 
-
+    this.addMatches = this.addMatches.bind(this);
   }
 
-  pushSwipe(currId, targetId){
-    axios.put('http://localhost:3000/api/calvin/swiped', {
-      currId,
-      targetId
-    })
-    .then(function (response) {
-      console.log('success push swiped!');
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  pushSwipe(currId, targetId) {
+    axios
+      .put("http://localhost:3000/api/calvin/swiped", {
+        currId,
+        targetId
+      })
+      .then(function(response) {
+        console.log("success push swiped!");
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 
-  pushPreferences(currId, targetId){
-    axios.put('http://localhost:3000/api/calvin/preferences', {
-      currId,
-      targetId
-    })
-    .then(function (response) {
-      console.log('success push preferences!');
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  pushPreferences(currId, targetId) {
+    axios
+      .put("http://localhost:3000/api/calvin/preferences", {
+        currId,
+        targetId
+      })
+      .then(function(response) {
+        console.log("success push preferences!");
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 
-  addMatches(receiverId, addId){
-    axios.put('http://localhost:3000/api/calvin/matches', {
-      receiverId,
-      addId
-    })
-    .then(function (response) {
-      console.log('success push matches!');
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  addMatches(receiverId, addId) {
+    axios
+      .put("http://localhost:3000/api/calvin/matches", {
+        receiverId,
+        addId
+      })
+      .then(function(response) {
+        console.log("success push matches!");
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 
   render() {
     return (
       <View style={styles.container}>
-      <View style={{position: 'absolute', left: "2%", top: "3%", zIndex: 1}}><Button onPress = {()=>{this.props.changeRoute('bio'); this.props.refreshQueue();}} title="Profile" /></View>
-      <View style={{position: 'absolute', right: "2%", top: "3%", zIndex: 1}}><Button onPress = {()=>{this.props.changeRoute('match'); this.props.refreshQueue();}} title="Matches" /></View>
-        
-      {
-          (this.props.queue.length>0)?  
+        <View
+          style={{ position: "absolute", left: "2%", top: "3%", zIndex: 1 }}
+        >
+          <Button
+            onPress={() => {
+              this.props.changeRoute("bio");
+              this.props.refreshQueue();
+              // this.props.getAllMatches();
+            }}
+            title="Profile"
+          />
+        </View>
+        <View
+          style={{ position: "absolute", right: "2%", top: "3%", zIndex: 1 }}
+        >
+          <Button
+            onPress={() => {
+              this.props.changeRoute("match");
+              this.props.refreshQueue();
+              // this.props.getAllMatches();
+            }}
+            title="Matches"
+          />
+        </View>
+
+        {this.props.queue.length > 0 ? (
           <Swiper
             cards={this.props.queue}
             renderCard={card => {
@@ -82,29 +104,56 @@ export default class Swipe extends React.Component {
                         }}
                         title="More Info"
                       />
-  
                     </View>
                   </ImageBackground>
                 </View>
               );
             }}
             onSwipedLeft={cardIndex => {
-              console.log('you are: ', this.props.user.id)
-            this.pushSwipe(this.props.user._id, this.props.queue[cardIndex]._id)
-              console.log('you hate this dog: ', this.props.queue[cardIndex].userName);
+              console.log("you are: ", this.props.user.id);
+              this.pushSwipe(
+                this.props.user._id,
+                this.props.queue[cardIndex]._id
+              );
+              console.log(
+                "you hate this dog: ",
+                this.props.queue[cardIndex].userName
+              );
             }}
             onSwipedRight={cardIndex => {
-              this.pushSwipe(this.props.user._id, this.props.queue[cardIndex]._id);
-              this.pushPreferences(this.props.user._id, this.props.queue[cardIndex].id)
-              console.log('you love this dog: ', this.props.queue[cardIndex].userName);
-              if (this.props.queue[cardIndex].preferences.includes(this.props.user.id)){
+              this.pushSwipe(
+                this.props.user._id,
+                this.props.queue[cardIndex]._id
+              );
+              this.pushPreferences(
+                this.props.user._id,
+                this.props.queue[cardIndex].id
+              );
+              console.log(
+                "you love this dog: ",
+                this.props.queue[cardIndex].userName
+              );
+              if (
+                this.props.queue[cardIndex].preferences.includes(
+                  this.props.user.id
+                )
+              ) {
                 // this is a match!!
-                console.log(`there is a match between: ${this.props.user.id} and ${this.props.queue[cardIndex].id}`)
-                this.addMatches(this.props.user._id, this.props.queue[cardIndex].id);
-                this.addMatches(this.props.queue[cardIndex]._id, this.props.user.id);
+                console.log(
+                  `there is a match between: ${this.props.user.id} and ${
+                    this.props.queue[cardIndex].id
+                  }`
+                );
+                this.addMatches(
+                  this.props.user._id,
+                  this.props.queue[cardIndex].id
+                );
+                this.addMatches(
+                  this.props.queue[cardIndex]._id,
+                  this.props.user.id
+                );
                 // so a pop up
               }
-  
             }}
             onSwipedAll={() => {
               console.log("you swiped everyone!");
@@ -114,8 +163,10 @@ export default class Swipe extends React.Component {
             stackSize={3}
             disableTopSwipe={true}
             disableBottomSwipe={true}
-          /> : <View></View>
-        }
+          />
+        ) : (
+          <View />
+        )}
       </View>
     );
   }

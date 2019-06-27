@@ -75,7 +75,7 @@ export default class Fetch extends React.Component {
         {
           (!this.state.login)
           ? <Login handleLogin={this.handleLogin}/>
-          : <Main user={this.state.user} matches={this.state.matches}/>
+          : <Main getAllMatches= {this.getAllMatches} user={this.state.user} matches={this.state.matches}/>
         }
       </View>
     );
