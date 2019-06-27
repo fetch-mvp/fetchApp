@@ -61,7 +61,7 @@ export default class Main extends React.Component {
     return (
       <View style={{height: '100%'}}>
         <Nav route={this.state.route} handleRouteChange={this.handleRouteChange}/>
-        <Content refreshQueue={this.refreshQueue} matches = {this.props.matches} queue = {this.state.queue} interestedDog = {this.state.interestedDog} changeInterestedDog = {this.changeInterestedDog} changeRoute = {this.changeRoute} route={this.state.route} user={this.props.user}/>
+        <Content refreshQueue={this.refreshQueue} allusers = {this.props.allusers} queue = {this.state.queue} interestedDog = {this.state.interestedDog} changeInterestedDog = {this.changeInterestedDog} changeRoute = {this.changeRoute} route={this.state.route} user={this.props.user}/>
       </View>
     );
   }

@@ -12,11 +12,8 @@ export default class Fetch extends React.Component {
     this.state={
       login: false,
       user: {},
-      matches: [],
+      allusers: [],
     }
-    this.getAllUsers = this.getAllUsers.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
-    this.getAllMatches = this.getAllMatches.bind(this);
   }
 
   handleLogin = (user) => {
@@ -24,48 +21,10 @@ export default class Fetch extends React.Component {
       () => this.getAllUsers())
   }
 
-  getAllUsers() {
-    let arr = [];
+  getAllUsers = () => {
     axios.get('http://localhost:3000/api/gabi/getall')
-      .then(data => {
-        let userinfo = data.data;
-        // console.log(userinfo)
-        let usermatches = this.state.user.matches;
-
-        for (let i = 0; i < userinfo.length; i++) {
-          for (let j = 0; j < usermatches.length; j++) {
-            if (userinfo[i].id === usermatches[j] && arr.length !== usermatches.length) {
-              arr.push(userinfo[i])
-            }
-          }
-        }
-        this.setState({
-          matches: arr
-        })
-        console.log(this.state.matches)
-      })
-      .catch(err => console.error(err))
-  }
-  
-
-
-  getAllMatches() {
-    let arr = [];
-    axios.get('http://localhost:3000/api/gabi/getall')
-      .then(data => {
-        let usermatches = this.state.user.matches;
-        let allusers = data.data
-
-        for (let i = 0; i < allusers.length; i++) {
-          for (let j = 0; j < usermatches.length; j++) {
-            if (allusers[i].id === usermatches[j] && arr.length <= usermatches.length) {
-              arr.push(allusers[i])
-            }
-          }
-        }
-      })
-      .then(() => this.setState({
-        matches: arr
+      .then(data => this.setState({
+        allusers: data.data
       }))
       .catch(err => console.error(err))
   }
@@ -77,7 +36,7 @@ export default class Fetch extends React.Component {
         {
           (!this.state.login)
           ? <Login handleLogin={this.handleLogin}/>
-          : <Main user={this.state.user} matches={this.state.matches}/>
+          : <Main user={this.state.user} allusers={this.state.allusers}/>
         }
       </View>
     );
