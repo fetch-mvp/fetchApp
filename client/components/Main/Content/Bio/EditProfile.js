@@ -31,6 +31,15 @@ export default class EditProfile extends Component {
     // }
   };
 
+  getPermissionCameraAsync = async () => {
+    // if (Constants.Platform.OS) {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    if (status !== 'granted') {
+      alert('Sorry, we need camera roll permissions to make this work!');
+    }
+    // }
+  };
+
   _pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -45,18 +54,22 @@ export default class EditProfile extends Component {
     }
   };
 
+  _takePicture = async () => {
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3]
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      this.setState({ photo: result.uri });
+    }
+  };
+
   setModalVisible = visible => {
     this.setState({ modalVisible: visible });
-  };
-  handleChoosePhoto = () => {
-    const options = {
-      noData: true
-    };
-    ImagePicker.launchImageLibrary(options, response => {
-      if (response.uri) {
-        this.setState({ photo: response });
-      }
-    });
   };
 
   render() {
@@ -85,6 +98,13 @@ export default class EditProfile extends Component {
                 />
               )}
               <Button title="Choose Photo" onPress={this._pickImage} />
+              <Button
+                title="Take a picture"
+                onPress={() => {
+                  this._takePicture();
+                  this.getPermissionCameraAsync();
+                }}
+              />
             </View>
           </View>
         </Modal>
