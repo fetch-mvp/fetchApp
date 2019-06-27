@@ -71,13 +71,14 @@ export default class Swipe extends React.Component {
     justifyContent: 'center',
     alignItems: 'center'
   }}>
-            <Button title="Hide modal" onPress={this.toggleModal} />
+            <Button title="Close" onPress={this.toggleModal} />
             <Text style={{
               textAlign: "center",
     fontSize: 40,
     backgroundColor: "transparent",
     top: "3%",
-    color: "red"
+    color: "red",
+    fontFamily: 'GillSans-SemiBoldItalic'
     }}>You got a new match!!</Text>
           </View>
         </Modal>
