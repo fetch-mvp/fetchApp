@@ -10,7 +10,7 @@ export default class Setting extends React.Component {
   render() {
     return (
       <View>
-        <Text>Setting</Text>
+        <Text> Test</Text>
       </View>
     );
   }

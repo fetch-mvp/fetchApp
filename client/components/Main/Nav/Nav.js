@@ -2,25 +2,27 @@ import React from 'react';
 import { Platform, Button, StyleSheet, Text, View } from 'react-native';
 
 export default class Nav extends React.Component {
-  constructor(props){
-    super(props)
-    this.state={}
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
 
-  render(){
-    let { route } = this.props
-    const statusbar = (Platform.OS === 'ios') && <View style={styles.statusbar}></View>
+  render() {
+    let { route } = this.props;
+    const statusbar = Platform.OS === 'ios' && (
+      <View style={styles.statusbar} />
+    );
 
     if (route === 'bio') {
       return (
         <View style={styles.NavBarStyle}>
           {statusbar}
-          <Button 
-            onPress={() => this.props.handleRouteChange("setting")}
+          <Button
+            onPress={() => this.props.handleRouteChange('setting')}
             title="Settings"
           />
-          <Button 
-            onPress={() => this.props.handleRouteChange("swipe")}
+          <Button
+            onPress={() => this.props.handleRouteChange('swipe')}
             title="Swipe"
           />
         </View>
@@ -28,9 +30,9 @@ export default class Nav extends React.Component {
     } else if (route === 'setting') {
       return (
         <View style={styles.NavBarStyle}>
-        {statusbar}
-          <Button 
-            onPress={() => this.props.handleRouteChange("bio")}
+          {statusbar}
+          <Button
+            onPress={() => this.props.handleRouteChange('bio')}
             title="Back =>"
           />
         </View>
@@ -38,28 +40,36 @@ export default class Nav extends React.Component {
     } else if (route === 'swipe') {
       return (
         <View style={styles.NavBarStyle}>
-        {statusbar}
-          <Button 
-            onPress={() => this.props.handleRouteChange("bio")}
+          {statusbar}
+          <Button
+            onPress={() => this.props.handleRouteChange('bio')}
             title="Bio"
           />
-          <Button 
-            onPress={() => this.props.handleRouteChange("match")}
+          <Button
+            onPress={() => this.props.handleRouteChange('match')}
             title="Match"
           />
         </View>
       );
     } else if (route === 'detail') {
       return (
+        <View style={styles.NavBarStyle}>
+          {statusbar}
+          <Button
+            onPress={() => this.props.handleRouteChange('swipe')}
+            title="<= Back"
+          />
+
         <View>
+
         </View>
       );
     } else if (route === 'match') {
       return (
         <View style={styles.NavBarStyle}>
-        {statusbar}
-          <Button 
-            onPress={() => this.props.handleRouteChange("swipe")}
+          {statusbar}
+          <Button
+            onPress={() => this.props.handleRouteChange('swipe')}
             title="<= Back"
           />
         </View>
@@ -67,9 +77,9 @@ export default class Nav extends React.Component {
     } else if (route === 'chat') {
       return (
         <View style={styles.NavBarStyle}>
-        {statusbar}
-          <Button 
-            onPress={() => this.props.handleRouteChange("match")}
+          {statusbar}
+          <Button
+            onPress={() => this.props.handleRouteChange('match')}
             title="<= Back"
           />
         </View>
@@ -78,13 +88,12 @@ export default class Nav extends React.Component {
   }
 }
 
-
 const styles = StyleSheet.create({
-  NavBarStyle : {
+  NavBarStyle: {
     height: '10%'
   },
-  statusbar : {
+  statusbar: {
     backgroundColor: 'white',
     height: 30
   }
-})
+});
