@@ -6,38 +6,70 @@ import {
   View,
   Alert,
   StyleSheet,
-  Button
+  Button,
+  Image,
+  Platform
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import * as Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
+import axios from 'axios';
+
+const createFormData = (photo, body) => {
+  const data = new FormData();
+
+  data.append('photo', {
+    // name: photo.fileName,
+    // type: photo.type,
+    uri:
+      Platform.OS === 'android' ? photo.uri : photo.uri.replace('file://', '')
+  });
+
+  Object.keys(body).forEach(key => {
+    data.append(key, body[key]);
+  });
+
+  return data;
+};
 
 export default class EditProfile extends Component {
   state = {
     modalVisible: true,
-    photo: null
+    photo: null,
+    images: [],
+    showPhoto: false
   };
 
   componentDidMount() {
     this.getPermissionAsync();
+    // console.log('WENDYYYYYS COMPONNET', this.props.user);
   }
 
+  handleUploadPhoto = () => {
+    axios
+      .post('/api/upload', {
+        images: createFormData(photo, { id: this.props.user.id })
+      })
+      .then(() => {
+        alert('Successfully Posted');
+        this.setState({ photo: null });
+      })
+      .catch(err => {
+        alert('Failed to upload');
+      });
+  };
+
   getPermissionAsync = async () => {
-    // if (Constants.Platform.OS) {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     if (status !== 'granted') {
       alert('Sorry, we need camera roll permissions to make this work!');
     }
-    // }
   };
 
   getPermissionCameraAsync = async () => {
-    // if (Constants.Platform.OS) {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     if (status !== 'granted') {
       alert('Sorry, we need camera roll permissions to make this work!');
     }
-    // }
   };
 
   _pickImage = async () => {
@@ -46,8 +78,8 @@ export default class EditProfile extends Component {
       allowsEditing: true,
       aspect: [4, 3]
     });
-
-    console.log(result);
+    console.log('******************', this.state.photo);
+    // console.log(result);
 
     if (!result.cancelled) {
       this.setState({ photo: result.uri });
@@ -62,14 +94,11 @@ export default class EditProfile extends Component {
     });
 
     console.log(result);
+    // this.setState({ showPhoto: true });
 
     if (!result.cancelled) {
       this.setState({ photo: result.uri });
     }
-  };
-
-  setModalVisible = visible => {
-    this.setState({ modalVisible: visible });
   };
 
   render() {
@@ -91,13 +120,19 @@ export default class EditProfile extends Component {
               <Text style={styles.test}>Update</Text>
             </View>
             <View>
-              {photo && (
+              {this.state.showPhoto && (
                 <Image
-                  source={{ uri: photo.uri }}
-                  style={{ width: 300, height: 300 }}
+                  source={{ url: photo.uri }}
+                  // style={{ width: 300, height: 500, backgroundColor: 'red' }}
                 />
               )}
-              <Button title="Choose Photo" onPress={this._pickImage} />
+              <Button
+                title="Choose Photo"
+                onPress={() => {
+                  this._pickImage();
+                  this.handleUploadPhoto();
+                }}
+              />
               <Button
                 title="Take a picture"
                 onPress={() => {

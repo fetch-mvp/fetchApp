@@ -56,7 +56,7 @@ export default class Bio extends React.Component {
           title="Edit Profile"
           // onPress={() => this.props.changeRoute('edit')}
         />
-        <EditProfile />
+        <EditProfile user={this.props.user} />
       </View>
     );
   }
@@ -64,7 +64,7 @@ export default class Bio extends React.Component {
 
 const styles = StyleSheet.create({
   imageContainer: {
-    flex: 1,
+    // flex: 1,
     paddingLeft: 1,
     paddingRight: 1
   },
