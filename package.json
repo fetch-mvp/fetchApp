@@ -6,7 +6,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "dev:server": "env-cmd nodemon server/index.js",
+    "dev:server": "env-cmd node server/index.js",
     "dev:seed": "node database/seed.js"
   },
   "dependencies": {
@@ -24,7 +24,8 @@
   "devDependencies": {
     "babel-preset-expo": "^5.1.1",
     "env-cmd": "^9.0.3",
-    "faker": "^4.1.0"
+    "faker": "^4.1.0",
+    "nodemon": "^1.19.1"
   },
   "private": true
 }

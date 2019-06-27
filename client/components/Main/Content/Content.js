@@ -8,15 +8,15 @@ import Detail from './Detail/Detail';
 import Match from './Match/Match';
 import Chat from './Chat/Chat';
 
-const Content = ({route, user, matches}) => {
+const Content = ({route, user, changeRoute, changeInterestedDog, interestedDog, matches}) => {
     if (route === 'bio') {
       return <Bio user={user}/>
     } else if (route === 'setting') {
       return <Setting user={user}/>
     } else if (route === 'swipe') {
-      return <Swipe user={user}/>
+      return <Swipe changeInterestedDog = {changeInterestedDog} changeRoute = {changeRoute} user={user}/>
     } else if (route === 'detail') {
-      return <Detail user={user}/>
+      return <Detail interestedDog = {interestedDog} changeRoute = {changeRoute} user={user}/>
     } else if (route === 'match') {
       return <Match user={user} matches={matches}/>
     } else if (route === 'chat') {
