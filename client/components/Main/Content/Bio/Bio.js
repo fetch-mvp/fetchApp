@@ -23,7 +23,7 @@ export default class Bio extends React.Component {
   }
 
   render() {
-    console.log(this.props.user);
+    // console.log('user: ', this.props.user);
 
     return (
       <View>
