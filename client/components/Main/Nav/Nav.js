@@ -59,6 +59,9 @@ export default class Nav extends React.Component {
             onPress={() => this.props.handleRouteChange('swipe')}
             title="<= Back"
           />
+
+        <View>
+
         </View>
       );
     } else if (route === 'match') {

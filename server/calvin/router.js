@@ -1,14 +1,26 @@
 const routes = require('express').Router()
 const Fetch = require('../../database/models')
+const ObjectID = require('mongodb').ObjectID;
 
-routes.get('/', (req,res)=> {
-	const { id } = req.query
-	Fetch.findOne({ "id": Number(id) })
-	.exec((err, docs)=> {
+//Routers
+routes.get('/getOne', (req,res)=> {
+	let randomNumber = Math.floor(Math.random() * 11)
+	// const { id } = req.query { "id": Number(id) }
+	Fetch.findOne({'id': randomNumber}).exec((err, docs)=> {
 		if (err) {
-			res.send("error")
+			res.status(404).send(err)
 		} else {
-			res.send(docs) // an object
+			res.status(200).send(docs) // an object
+		}
+	})
+})
+
+routes.get('/getAll', (req, res) => {
+	Fetch.find({}).exec((err, docs) => {
+		if(err) {
+			res.status(404).send(err)
+		} else {
+			res.status(200).send(docs)
 		}
 	})
 })

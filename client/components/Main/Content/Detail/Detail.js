@@ -26,11 +26,11 @@ export default class MoreInfo extends React.Component {
           {listImages}
         </Pages>
         </View>
-        <Text>{this.props.interestedDog.username}</Text>
+        <Text>{this.props.interestedDog.userName}</Text>
         <Image style={{width: 13, height: 13}} source={{uri: "https://img.icons8.com/ios/50/000000/male-filled.png"}}></Image>
-        <Text>{this.props.interestedDog.animalgender}</Text>
-        <Text>{"Location: " + this.props.interestedDog.location}</Text>
-        <Text>{"Description: " + this.props.interestedDog.description}</Text>
+        <Text>{this.props.interestedDog.animalGender}</Text>
+        <Text>{"Location: " + this.props.interestedDog.userLocation}</Text>
+        {/* <Text>{"Description: " + this.props.interestedDog.description}</Text> */}
       </View>
     );
   }
