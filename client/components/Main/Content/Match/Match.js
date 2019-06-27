@@ -26,7 +26,7 @@ export default class Match extends React.Component {
           <ScrollView>
             {this.props.matches.map((match, key) => {
               return <View style={styles.container} key={key}>
-                <Image style={styles.images} source={{ uri: `${match.images}` }} onPress={() => this.grabCurrentChat()}/>
+                <Image style={styles.images} source={{ uri: `${match.images[0]}` }} onPress={() => this.grabCurrentChat()}/>
                 <Text style={styles.username} >{match.userName}</Text>
               </View>
             })}

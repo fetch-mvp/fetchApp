@@ -10,13 +10,13 @@ import Chat from './Chat/Chat';
 import EditProfile from './EditProfile/EditProfile.js';
 
 
-const Content = ({route, user, changeRoute, changeInterestedDog, interestedDog, queue, matches}) => {
+const Content = ({refreshQueue, route, user, changeRoute, changeInterestedDog, interestedDog, queue, matches}) => {
     if (route === 'bio') {
       return <Bio user={user}/>
     } else if (route === 'setting') {
       return <Setting user={user}/>
     } else if (route === 'swipe') {
-      return <Swipe queue = {queue} changeInterestedDog = {changeInterestedDog} changeRoute = {changeRoute} user={user}/>
+      return <Swipe refreshQueue = {refreshQueue} user={user} queue = {queue} changeInterestedDog = {changeInterestedDog} changeRoute = {changeRoute} user={user}/>
     } else if (route === 'detail') {
       return <Detail interestedDog = {interestedDog} changeRoute = {changeRoute} user={user}/>
     } else if (route === 'match') {

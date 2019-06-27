@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, Button, ImageBackground } from "react-native";
 import Swiper from "react-native-deck-swiper";
+import axios from "axios"; 
 
 export default class Swipe extends React.Component {
   constructor(props) {
@@ -8,12 +9,27 @@ export default class Swipe extends React.Component {
 
     this.state = {
     };
+    this.pushSwipe = this.pushSwipe.bind(this); 
   }
 
+  pushSwipe(currId, targetId){
+    axios.put('http://localhost:3000/api/calvin/swiped', {
+      currId,
+      targetId
+    })
+    .then(function (response) {
+      console.log('success push swipe!');
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
   render() {
     return (
       <View style={styles.container}>
+      <View style={{position: 'absolute', left: "2%", top: "3%", zIndex: 1}}><Button onPress = {()=>{this.props.changeRoute('bio'); this.props.refreshQueue();}} title="Profile" /></View>
+      <View style={{position: 'absolute', right: "2%", top: "3%", zIndex: 1}}><Button onPress = {()=>{this.props.changeRoute('match'); this.props.refreshQueue();}} title="Matches" /></View>
         <Swiper
           cards={this.props.queue}
           renderCard={card => {
@@ -39,11 +55,17 @@ export default class Swipe extends React.Component {
               </View>
             );
           }}
-          onSwiped={cardIndex => {
-            console.log(cardIndex);
+          onSwipedLeft={cardIndex => {
+            console.log('you are: ', this.props.user.id)
+          this.pushSwipe(this.props.user._id, this.props.queue[cardIndex]._id)
+            console.log('you hate this dog: ', this.props.queue[cardIndex].userName);
+          }}
+          onSwipedRight={cardIndex => {
+            this.pushSwipe(this.props.user._id, this.props.queue[cardIndex]._id)
+            console.log('you love this dog: ', this.props.queue[cardIndex].userName);
           }}
           onSwipedAll={() => {
-            console.log("onSwipedAll");
+            console.log("you swiped everyone!");
           }}
           cardIndex={0}
           backgroundColor={"black"}

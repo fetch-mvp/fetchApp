@@ -37,16 +37,7 @@ export default class Nav extends React.Component {
       );
     } else if (route === 'swipe') {
       return (
-        <View style={styles.NavBarStyle}>
-        {statusbar}
-          <Button 
-            onPress={() => this.props.handleRouteChange("bio")}
-            title="Bio"
-          />
-          <Button 
-            onPress={() => this.props.handleRouteChange("match")}
-            title="Match"
-          />
+        <View>
         </View>
       );
     } else if (route === 'detail') {

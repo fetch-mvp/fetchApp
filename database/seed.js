@@ -60,7 +60,7 @@ const dataGenerator = () => {
           ? [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
           : [2, 4, 6, 8, 10, 12, 14, 16, 18, 20],
       matches: matchesGen(i),
-      images: [pics[i]],
+      images: [pics[i], pics[Math.floor(Math.random()*20)], pics[Math.floor(Math.random()*20)]],
       animalGender: i % 2 === 0 ? true : false,
       description: faker.lorem.sentence(),
       animalSize: animalSizeGenerator()
