@@ -8,7 +8,8 @@ import {
   StyleSheet,
   Button,
   Image,
-  Platform
+  Platform,
+  ImageBackground
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
@@ -18,8 +19,8 @@ const createFormData = (photo, body) => {
   const data = new FormData();
 
   data.append('photo', {
-    // name: photo.fileName,
-    // type: photo.type,
+    name: photo.fileName,
+    type: photo.type,
     uri:
       Platform.OS === 'android' ? photo.uri : photo.uri.replace('file://', '')
   });
@@ -75,11 +76,16 @@ export default class EditProfile extends Component {
   _pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3]
+      allowsEditing: true
+      // aspect: [4, 3]
     });
-    console.log('******************', this.state.photo);
+
     // console.log(result);
+
+    let updatedUri = result.uri.slice(7);
+    this.setState({ photo: updatedUri });
+    // this.setState({ showPhoto: true });
+    console.log('******************', this.state.photo);
 
     if (!result.cancelled) {
       this.setState({ photo: result.uri });
@@ -89,8 +95,8 @@ export default class EditProfile extends Component {
   _takePicture = async () => {
     let result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3]
+      allowsEditing: true
+      // aspect: [4, 3]
     });
 
     console.log(result);
@@ -103,6 +109,8 @@ export default class EditProfile extends Component {
 
   render() {
     const { photo } = this.state;
+    // const uri = photo.slice(2);
+
     return (
       <View style={{ marginTop: 22 }}>
         <Modal
@@ -117,20 +125,36 @@ export default class EditProfile extends Component {
             <View>
               <Text>Update Profile</Text>
 
-              <Text style={styles.test}>Update</Text>
+              {/* <Text style={styles.test}>Update</Text> */}
             </View>
-            <View>
-              {this.state.showPhoto && (
-                <Image
-                  source={{ url: photo.uri }}
-                  // style={{ width: 300, height: 500, backgroundColor: 'red' }}
-                />
-              )}
+            <View
+              style={
+                {
+                  // flex: 1,
+                  // paddingTop: 400,
+                  // alignItems: 'center',
+                  // justifyContent: 'center'
+                }
+              }
+            >
+              <View>
+                {photo && (
+                  <Image
+                    source={{
+                      uri: photo
+                    }}
+                    style={{
+                      width: 100,
+                      height: 100
+                    }}
+                  />
+                )}
+              </View>
               <Button
                 title="Choose Photo"
                 onPress={() => {
                   this._pickImage();
-                  this.handleUploadPhoto();
+                  // this.handleUploadPhoto();
                 }}
               />
               <Button
@@ -148,12 +172,12 @@ export default class EditProfile extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  test: {
-    alignSelf: 'flex-end',
-    paddingTop: 500
-  }
-});
+// const styles = StyleSheet.create({
+//   test: {
+//     alignSelf: 'flex-end',
+//     paddingTop: 500
+//   }
+// });
 
 //    <TouchableHighlight
 //     onPress={() => {
