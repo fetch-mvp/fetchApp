@@ -10,10 +10,11 @@ export default class Swipe extends React.Component {
     };
   }
 
-
   render() {
     return (
       <View style={styles.container}>
+      <View style={{position: 'absolute', left: "2%", top: "3%", zIndex: 1}}><Button onPress = {()=>{this.props.changeRoute('bio')}} title="Profile" /></View>
+      <View style={{position: 'absolute', right: "2%", top: "3%", zIndex: 1}}><Button onPress = {()=>{this.props.changeRoute('match')}} title="Matches" /></View>
         <Swiper
           cards={this.props.queue}
           renderCard={card => {
@@ -39,11 +40,14 @@ export default class Swipe extends React.Component {
               </View>
             );
           }}
-          onSwiped={cardIndex => {
-            console.log(cardIndex);
+          onSwipedLeft={cardIndex => {
+            console.log('you hate this dog: ', this.props.queue[cardIndex].userName);
+          }}
+          onSwipedRight={cardIndex => {
+            console.log('you love this dog: ', this.props.queue[cardIndex].userName);
           }}
           onSwipedAll={() => {
-            console.log("onSwipedAll");
+            console.log("you swiped everyone!");
           }}
           cardIndex={0}
           backgroundColor={"black"}

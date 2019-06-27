@@ -9,7 +9,7 @@ export default class Main extends React.Component {
   constructor(props){
     super(props)
     this.state={
-      user: {},
+      user: {}, // Calvin: looks like it doesn't do anything?
       route: 'bio', //'setting', 'bio', 'swipe', 'detail', 'match', 'chat'
       interestedDog: {},
       userinfo: [],
@@ -19,14 +19,22 @@ export default class Main extends React.Component {
     }
     this.changeRoute = this.changeRoute.bind(this);
     this.changeInterestedDog = this.changeInterestedDog.bind(this);  
+    this.refreshQueue = this.refreshQueue.bind(this);
   }
 
   componentDidMount() {
+    this.refreshQueue();
+  }
+
+  refreshQueue(){
     let that = this; 
     axios
       .get("http://localhost:3000/api/calvin/getAll")
       .then(function(res) {
-        that.setState({queue: res.data})
+        // Filter out the logged in user and swipped users
+        that.setState({queue: res.data.filter(x=>(x._id!==that.props.user._id && (!that.props.user.swiped.includes(x._id))))})
+        // todo: also filter the gender and the distance.. (need an API to calculate distance)
+
       })
       .catch(function(error) {
         console.log(error);
