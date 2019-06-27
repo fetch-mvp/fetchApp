@@ -1,8 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-
+import axios from 'axios';
 import Nav from './Nav/Nav';
 import Content from './Content/Content';
+
 
 export default class Main extends React.Component {
   constructor(props){
@@ -11,9 +12,6 @@ export default class Main extends React.Component {
       user: {},
       route: 'bio', //'setting', 'bio', 'swipe', 'detail', 'match', 'chat'
       interestedDog: {},
-      userinfo: [],
-      allusers: [],
-      matches: [],
     }
     this.changeRoute = this.changeRoute.bind(this);
     this.changeInterestedDog = this.changeInterestedDog.bind(this);  
@@ -35,7 +33,7 @@ export default class Main extends React.Component {
     return (
       <View style={{height: '100%'}}>
         <Nav route={this.state.route} handleRouteChange={this.handleRouteChange}/>
-        <Content interestedDog = {this.state.interestedDog} changeInterestedDog = {this.changeInterestedDog} changeRoute = {this.changeRoute} route={this.state.route} user={this.props.user}/>
+        <Content matches={this.props.matches} interestedDog = {this.state.interestedDog} changeInterestedDog = {this.changeInterestedDog} changeRoute = {this.changeRoute} route={this.state.route} user={this.props.user}/>
       </View>
     );
   }

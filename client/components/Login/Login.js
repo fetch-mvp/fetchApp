@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import { ImageBackground, Button, StyleSheet, Text, View } from 'react-native';
-import Constants from 'expo-constants';
 
 let corgi = 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
 
@@ -9,9 +8,8 @@ export default class Login extends React.Component {
   constructor(props){
     super(props)
     this.state={
-      user: null
-    };
-  }
+      user: null,
+    }
 
   componentDidMount(){
     let randomUser = Math.floor(Math.random()*20)
@@ -19,6 +17,7 @@ export default class Login extends React.Component {
       .then(data => this.setState({ user: data.data }))
       .catch(e => console.log(e));
   }
+
 
   render() {
     return (

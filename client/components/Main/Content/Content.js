@@ -8,7 +8,7 @@ import Detail from './Detail/Detail';
 import Match from './Match/Match';
 import Chat from './Chat/Chat';
 
-const Content = ({route, user, changeRoute, changeInterestedDog, interestedDog}) => {
+const Content = ({route, user, changeRoute, changeInterestedDog, interestedDog, matches}) => {
     if (route === 'bio') {
       return <Bio user={user}/>
     } else if (route === 'setting') {
@@ -18,9 +18,9 @@ const Content = ({route, user, changeRoute, changeInterestedDog, interestedDog})
     } else if (route === 'detail') {
       return <Detail interestedDog = {interestedDog} changeRoute = {changeRoute} user={user}/>
     } else if (route === 'match') {
-      return <Match user={user}/>
+      return <Match user={user} matches={matches}/>
     } else if (route === 'chat') {
-      return <Chat user={user}/>
+      return <Chat user={user} matches={matches}/>
     }
 }
 export default Content;
