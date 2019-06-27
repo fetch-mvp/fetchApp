@@ -14,7 +14,6 @@ export default class Main extends React.Component {
       interestedDog: {},
       userinfo: [],
       allusers: [],
-      matches: [],
       queue: []
     }
     this.changeRoute = this.changeRoute.bind(this);

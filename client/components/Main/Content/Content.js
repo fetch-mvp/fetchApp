@@ -10,7 +10,7 @@ import Chat from './Chat/Chat';
 import EditProfile from './EditProfile/EditProfile.js';
 
 
-const Content = ({refreshQueue, route, user, changeRoute, changeInterestedDog, interestedDog, queue, matches}) => {
+const Content = ({refreshQueue, route, user, changeRoute, changeInterestedDog, interestedDog, queue, allusers}) => {
     if (route === 'bio') {
       return <Bio user={user}/>
     } else if (route === 'setting') {
@@ -20,7 +20,7 @@ const Content = ({refreshQueue, route, user, changeRoute, changeInterestedDog, i
     } else if (route === 'detail') {
       return <Detail interestedDog = {interestedDog} changeRoute = {changeRoute} user={user}/>
     } else if (route === 'match') {
-      return <Match user={user} matches={matches}/>
+      return <Match user={user} allusers={allusers}/>
     } else if (route === 'editprofile') {
       return <EditProfile />
     }
