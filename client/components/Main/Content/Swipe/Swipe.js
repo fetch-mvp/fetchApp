@@ -2,16 +2,23 @@ import React from "react";
 import { StyleSheet, Text, View, Button, ImageBackground } from "react-native";
 import Swiper from "react-native-deck-swiper";
 import axios from "axios";
+import Modal from "react-native-modal";
 
 export default class Swipe extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      isModalVisible: false
+    };
     this.pushSwipe = this.pushSwipe.bind(this);
     this.pushPreferences = this.pushPreferences.bind(this);
     this.addMatches = this.addMatches.bind(this);
   }
+
+  toggleModal = () => {
+    this.setState({ isModalVisible: !this.state.isModalVisible });
+  };
 
   pushSwipe(currId, targetId) {
     axios
@@ -58,6 +65,22 @@ export default class Swipe extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Modal isVisible={this.state.isModalVisible}>
+          <View style={{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }}>
+            <Button title="Hide modal" onPress={this.toggleModal} />
+            <Text style={{
+              textAlign: "center",
+    fontSize: 40,
+    backgroundColor: "transparent",
+    top: "3%",
+    color: "red"
+    }}>You got a new match!!</Text>
+          </View>
+        </Modal>
         <View
           style={{ position: "absolute", left: "2%", top: "3%", zIndex: 1 }}
         >
@@ -150,6 +173,7 @@ export default class Swipe extends React.Component {
                   this.props.queue[cardIndex]._id,
                   this.props.user.id
                 );
+                this.toggleModal();
                 // so a pop up
               }
             }}
