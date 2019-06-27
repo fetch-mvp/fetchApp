@@ -33,7 +33,10 @@ export default class Main extends React.Component {
       .then(function(res) {
         // Filter out the logged in user and swipped users
         let currUser = res.data.filter(x=>(x._id===that.props.user._id))[0];
-        that.setState({queue: res.data.filter(x=>(x._id!==that.props.user._id && (!currUser.swiped.includes(x._id))))})
+        // let preferredGender = currUser.preferredGender;
+        // let preferredSize = currUser.preferredSize;
+        let filteredQueue = res.data.filter(x=>(x._id!==that.props.user._id && (!currUser.swiped.includes(x._id))))
+        that.setState({queue: filteredQueue})
 
         console.log('most updated curr user: ', res.data.filter(x=>(x._id===that.props.user._id))[0])
         // todo: also filter the gender and the distance.. (need an API to calculate distance)
@@ -41,7 +44,6 @@ export default class Main extends React.Component {
       .catch(function(error) {
         console.log(error);
       })
-
   }
 
   changeRoute(route) {
