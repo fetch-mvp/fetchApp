@@ -18,17 +18,18 @@ import axios from 'axios';
 const createFormData = (photo, body) => {
   const data = new FormData();
 
+  let editedPhotoUri = photo.slice(7);
+
   data.append('photo', {
     name: photo.fileName,
     type: photo.type,
-    uri:
-      Platform.OS === 'android' ? photo.uri : photo.uri.replace('file://', '')
+    uri: Platform.OS === 'android' ? photo : editedPhotoUri
   });
 
   Object.keys(body).forEach(key => {
     data.append(key, body[key]);
   });
-
+  console.log(data);
   return data;
 };
 
@@ -37,22 +38,23 @@ export default class EditProfile extends Component {
     modalVisible: true,
     photo: null,
     images: [],
-    showPhoto: false
+    showPhoto: false,
+    updatedUri: null,
+    newUri: ''
   };
 
   componentDidMount() {
     this.getPermissionAsync();
-    // console.log('WENDYYYYYS COMPONNET', this.props.user);
   }
 
   handleUploadPhoto = () => {
     axios
-      .post('/api/upload', {
-        images: createFormData(photo, { id: this.props.user.id })
+      .post('http://localhost:3000/api/wendy/upload', {
+        photo: createFormData(this.state.photo, { _id: this.props.user._id })
       })
       .then(() => {
         alert('Successfully Posted');
-        this.setState({ photo: null });
+        this.setState({ photo: null }); // should set state to new uri
       })
       .catch(err => {
         alert('Failed to upload');
@@ -76,16 +78,11 @@ export default class EditProfile extends Component {
   _pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true
-      // aspect: [4, 3]
+      allowsEditing: true,
+      aspect: [4, 3]
     });
-
-    // console.log(result);
-
-    let updatedUri = result.uri.slice(7);
-    this.setState({ photo: updatedUri });
-    // this.setState({ showPhoto: true });
-    console.log('******************', this.state.photo);
+    let uri = result.uri.slice(7);
+    this.setState({ updatedUri: uri, photo: result.uri });
 
     if (!result.cancelled) {
       this.setState({ photo: result.uri });
@@ -95,12 +92,9 @@ export default class EditProfile extends Component {
   _takePicture = async () => {
     let result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true
-      // aspect: [4, 3]
+      allowsEditing: true,
+      aspect: [4, 3]
     });
-
-    console.log(result);
-    // this.setState({ showPhoto: true });
 
     if (!result.cancelled) {
       this.setState({ photo: result.uri });
@@ -109,7 +103,6 @@ export default class EditProfile extends Component {
 
   render() {
     const { photo } = this.state;
-    // const uri = photo.slice(2);
 
     return (
       <View style={{ marginTop: 22 }}>
@@ -124,8 +117,6 @@ export default class EditProfile extends Component {
           <View style={{ marginTop: 22 }}>
             <View>
               <Text>Update Profile</Text>
-
-              {/* <Text style={styles.test}>Update</Text> */}
             </View>
             <View
               style={
@@ -138,15 +129,15 @@ export default class EditProfile extends Component {
               }
             >
               <View>
-                {photo && (
+                {photo ? (
                   <Image
-                    source={{
-                      uri: photo
-                    }}
-                    style={{
-                      width: 100,
-                      height: 100
-                    }}
+                    source={{ uri: `${this.state.updatedUri}` }}
+                    style={{ width: 100, height: 100 }}
+                  />
+                ) : (
+                  <Image
+                    source={{ uri: `${this.props.user.images[0]}` }}
+                    style={{ width: 100, height: 100 }}
                   />
                 )}
               </View>
@@ -154,7 +145,6 @@ export default class EditProfile extends Component {
                 title="Choose Photo"
                 onPress={() => {
                   this._pickImage();
-                  // this.handleUploadPhoto();
                 }}
               />
               <Button
@@ -162,6 +152,12 @@ export default class EditProfile extends Component {
                 onPress={() => {
                   this._takePicture();
                   this.getPermissionCameraAsync();
+                }}
+              />
+              <Button
+                title="Upload"
+                onPress={() => {
+                  this.handleUploadPhoto();
                 }}
               />
             </View>
