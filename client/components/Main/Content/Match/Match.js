@@ -9,10 +9,6 @@ export default class Match extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-<<<<<<< HEAD
-
-    }
-=======
       chat: null,
     }
     this.grabCurrentChat = this.grabCurrentChat.bind(this);
@@ -20,7 +16,6 @@ export default class Match extends React.Component {
 
   grabCurrentChat() {
 
->>>>>>> 158e8232f3951d9b0705c9f9fbce1095420e6a7e
   }
 
   render() {
@@ -31,13 +26,8 @@ export default class Match extends React.Component {
           <ScrollView>
             {this.props.matches.map((match, key) => {
               return <View style={styles.container} key={key}>
-<<<<<<< HEAD
-                <Image style={styles.images} source={{ uri: `${match.images}` }} />
-                <Text style={styles.username}>{match.userName}</Text>
-=======
                 <Image style={styles.images} source={{ uri: `${match.images}` }} onPress={() => this.grabCurrentChat()}/>
                 <Text style={styles.username} >{match.userName}</Text>
->>>>>>> 158e8232f3951d9b0705c9f9fbce1095420e6a7e
               </View>
             })}
           </ScrollView>

@@ -1,12 +1,7 @@
 import React from 'react';
-<<<<<<< HEAD
-import { Text, View } from 'react-native';
-import axios from 'axios';
-=======
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import axios from 'axios';
 
->>>>>>> 158e8232f3951d9b0705c9f9fbce1095420e6a7e
 import Login from './components/Login/Login';
 import Main from './components/Main/Main';
 
@@ -16,18 +11,6 @@ export default class Fetch extends React.Component {
     super(props)
     this.state={
       login: false,
-<<<<<<< HEAD
-      user: {}, 
-      matches: []
-    };
-    this.getAllMatches = this.getAllMatches.bind(this);
-  }
-
-  handleLogin = user => {
-    this.setState({ login: true, user },
-      () => this.getAllMatches());
-  };
-=======
       user: {},
       matches: [],
     }
@@ -63,7 +46,6 @@ export default class Fetch extends React.Component {
   }
   
 
->>>>>>> 158e8232f3951d9b0705c9f9fbce1095420e6a7e
 
   getAllMatches() {
     let arr = [];
