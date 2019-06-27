@@ -7,19 +7,21 @@ import {
   Image,
   ImageBackground
 } from 'react-native';
-import { Pages } from 'react-native-pages';
+import EditProfile from './EditProfile.js';
 
 export default class Bio extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       user: {},
-      images: [
-        'https://mvp-fetch-app.s3-us-west-1.amazonaws.com/Dog+Pictures/corgi.jpg',
-        'https://mvp-fetch-app.s3-us-west-1.amazonaws.com/Dog+Pictures/corgi.jpg',
-        'https://mvp-fetch-app.s3-us-west-1.amazonaws.com/Dog+Pictures/corgi.jpg'
-      ]
+      images: [],
+      isVisible: false
     };
+    this.setModalVisible = this.setModalVisible.bind(this);
+  }
+
+  setModalVisible() {
+    this.setState({ isVisible: !this.state.isVisible });
   }
 
   render() {
@@ -52,8 +54,9 @@ export default class Bio extends React.Component {
         </View>
         <Button
           title="Edit Profile"
-          onPress={() => this.props.changeRoute('edit')}
+          // onPress={() => this.props.changeRoute('edit')}
         />
+        <EditProfile />
       </View>
     );
   }
