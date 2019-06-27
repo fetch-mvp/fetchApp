@@ -8,13 +8,13 @@ import Detail from './Detail/Detail';
 import Match from './Match/Match';
 import Chat from './Chat/Chat';
 
-const Content = ({route, user, changeRoute, changeInterestedDog, interestedDog}) => {
+const Content = ({route, user, changeRoute, changeInterestedDog, interestedDog, queue}) => {
     if (route === 'bio') {
       return <Bio user={user}/>
     } else if (route === 'setting') {
       return <Setting user={user}/>
     } else if (route === 'swipe') {
-      return <Swipe changeInterestedDog = {changeInterestedDog} changeRoute = {changeRoute} user={user}/>
+      return <Swipe queue = {queue} changeInterestedDog = {changeInterestedDog} changeRoute = {changeRoute} user={user}/>
     } else if (route === 'detail') {
       return <Detail interestedDog = {interestedDog} changeRoute = {changeRoute} user={user}/>
     } else if (route === 'match') {
