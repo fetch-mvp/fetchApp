@@ -7,7 +7,7 @@ import {
   Image,
   ImageBackground
 } from 'react-native';
-import EditProfile from './EditProfile.js';
+// import EditProfile from './EditProfile.js';
 
 export default class Bio extends React.Component {
   constructor(props) {
@@ -57,11 +57,11 @@ export default class Bio extends React.Component {
           />
         </View>
 
-        {!this.state.isVisible && (
+        {/* {!this.state.isVisible && (
           <View>
             <EditProfile user={this.props.user} />
           </View>
-        )}
+        )} */}
       </View>
     );
   }
