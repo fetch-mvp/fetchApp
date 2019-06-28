@@ -20,7 +20,7 @@ export default class Setting extends React.Component {
   }
 
   updateRequest() {
-    let {userSettingMiles, animalSize, animalGender} = this.state
+    let {maxDistance, preferredSize, preferredGender} = this.state
     let id = this.props.user.id;
     console.log("user id ===> ", id)
     axios
