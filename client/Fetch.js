@@ -13,13 +13,14 @@ export default class Fetch extends React.Component {
       login: false,
       user: {},
       matches: [],
+      newUser: false,
     }
     this.getCurrentMatches = this.getCurrentMatches.bind(this);
   }
 
 
-  handleLogin = (user) => {
-    this.setState({login:true, user})
+  handleLogin = data => {
+    this.setState({ login: true, user: data.data, newUser: data.new});
   }
 
   getCurrentMatches() {
@@ -46,9 +47,12 @@ export default class Fetch extends React.Component {
         {
           (!this.state.login)
           ? <Login handleLogin={this.handleLogin}/>
-          : <Main user={this.state.user} currentMatches={this.getCurrentMatches} matches={this.state.matches}/>
+          : <Main newnewUser={this.state.newUser} user={this.state.user} currentMatches={this.getCurrentMatches} matches={this.state.matches}/>
         }
       </View>
     );
   }
 }
+
+
+

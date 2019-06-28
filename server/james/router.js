@@ -1,6 +1,14 @@
 const routes = require('express').Router()
 const Fetch = require('../../database/models')
 
+/*
+AWS Info
+Access Key ID : AKIAJFTGRSGXNRB5P2QQ
+Secret Access Key : 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
+region=us-east-1
+jamesfetch
+*/
+
 routes.get('/', (req,res)=> {
 	const { id } = req.query
 	Fetch.findOne({ "id": Number(id) })
@@ -11,6 +19,45 @@ routes.get('/', (req,res)=> {
 			res.send(docs) // an object
 		}
 	})
+})
+
+routes.post('/login', (req,res)=> {
+	const { userEmail , userPassword } = req.body
+	Fetch.findOne({ userEmail })
+	.exec((err, docs)=> {
+		if (err) {
+			//network error
+			res.send({system: 'login fail'})
+		} else {
+			if (!docs) {
+				//id not found
+				res.send({system: 'login fail'})
+			}
+			if (docs.userPassword === userPassword) {
+				//sucess!!!
+				res.send({system: 'login success', docs: docs}) // an object
+			} else {
+				//pw not match
+				res.send({system: 'login fail'}) // an object
+			}
+		}
+	})
+})
+
+routes.post('/register', async (req,res)=> {
+	const { userName, userEmail, userPassword } = req.body
+	try{
+		let docs = await Fetch.create({ userName, userEmail, userPassword })
+		if (docs.userName) {
+			res.send({system: 'register success', docs})
+		} else {
+			res.send({system: 'register fail'})
+		}
+	} catch(e) {
+		res.send({system: 'register fail'})
+	}
+	
+
 })
 
 module.exports = routes
