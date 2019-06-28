@@ -8,6 +8,7 @@ import {
   ImageBackground
 } from 'react-native';
 // import EditProfile from './EditProfile.js';
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 export default class Bio extends React.Component {
   constructor(props) {
@@ -54,6 +55,7 @@ export default class Bio extends React.Component {
             <Button
               title="Edit Profile"
               onPress={() => this.props.changeRoute('chat')}
+              styling={styles.button}
             />
           </View>
         </View>
@@ -76,10 +78,10 @@ const styles = StyleSheet.create({
   name: {
     justifyContent: 'center',
     // paddingTop: 200,
-    paddingBottom: 20,
+    paddingBottom: 5,
     paddingLeft: 10,
     fontSize: 30,
-    fontFamily: 'GillSans-SemiBoldItalic',
+    fontFamily: 'GillSans',
     color: '#3EC1E1'
   },
   profile: {
@@ -87,18 +89,18 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingTop: 20,
     fontSize: 40,
-    fontFamily: 'GillSans-SemiBoldItalic'
+    fontFamily: 'GillSans'
   },
 
   textContainer2: {
     paddingLeft: 8,
     color: '#fff',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontSize: 15
   },
   textbox: {
-    borderRadius: 10,
     backgroundColor: '#3EC1E1',
-    paddingTop: 60,
+    paddingTop: 50,
     paddingBottom: 60,
     paddingLeft: 10,
     paddingRight: 10

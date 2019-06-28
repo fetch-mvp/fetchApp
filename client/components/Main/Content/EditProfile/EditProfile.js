@@ -162,30 +162,41 @@ export default class EditProfile extends Component {
                 clearTextOnFocus={true}
               />
             </View>
+
+            <Button
+              title="Choose Photo"
+              onPress={() => {
+                this._pickImage();
+              }}
+              style={styles.buttons}
+            />
+            <Button
+              title="Take a picture"
+              onPress={() => {
+                this._takePicture();
+                this.getPermissionCameraAsync();
+              }}
+              style={styles.buttons}
+            />
+            <Button
+              title="Upload"
+              onPress={() => {
+                this.handleUploadPhoto();
+              }}
+              style={styles.buttons}
+            />
             <View style={styles.buttonContainer}>
-              <Button
-                title="Choose Photo"
-                onPress={() => {
-                  this._pickImage();
-                }}
-                style={styles.buttons}
-              />
-              <Button
-                title="Take a picture"
-                onPress={() => {
-                  this._takePicture();
-                  this.getPermissionCameraAsync();
-                }}
-                style={styles.buttons}
-              />
-              <Button
-                title="Upload"
-                onPress={() => {
-                  this.handleUploadPhoto();
-                }}
-                style={styles.buttons}
-              />
-              <Button title="X" onPress={() => this.props.changeRoute('bio')} />
+              {/* <Button
+                title="X"
+                onPress={() => this.props.changeRoute('bio')}
+                style={styles.xButton}
+              /> */}
+              <Text
+                onPress={() => this.props.changeRoute('bio')}
+                style={styles.textBtn}
+              >
+                X
+              </Text>
             </View>
           </View>
         </Modal>
@@ -208,8 +219,20 @@ const styles = StyleSheet.create({
     borderWidth: 5
   },
   buttonContainer: {
-    flexDirection: 'row',
-    paddingTop: 100
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#3EC1E1',
+    height: 50,
+    width: 50,
+    borderRadius: 100,
+    marginLeft: 300,
+    marginTop: 20,
+    color: '#FFF',
+    fontWeight: 'bold'
+  },
+  textBtn: {
+    color: '#FFF',
+    fontWeight: 'bold'
   },
   buttons: {
     width: 20,
@@ -259,6 +282,7 @@ const styles = StyleSheet.create({
   textContainer: {
     paddingBottom: 20
   }
+  // btnContainer: {}
 });
 
 //`${this.state.updatedUri}`
