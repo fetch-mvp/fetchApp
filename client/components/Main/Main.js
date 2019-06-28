@@ -14,7 +14,6 @@ export default class Main extends React.Component {
       interestedDog: {},
       userinfo: [],
       allusers: [],
-      matches: [],
       queue: []
     }
     this.changeRoute = this.changeRoute.bind(this);
@@ -38,7 +37,7 @@ export default class Main extends React.Component {
         let filteredQueue = res.data.filter(x=>(x._id!==that.props.user._id && (!currUser.swiped.includes(x._id))))
         that.setState({queue: filteredQueue})
 
-        console.log('most updated curr user: ', res.data.filter(x=>(x._id===that.props.user._id))[0])
+        // console.log('most updated curr user: ', res.data.filter(x=>(x._id===that.props.user._id))[0])
         // todo: also filter the gender and the distance.. (need an API to calculate distance)
       })
       .catch(function(error) {
@@ -63,7 +62,7 @@ export default class Main extends React.Component {
     return (
       <View style={{height: '100%'}}>
         <Nav route={this.state.route} handleRouteChange={this.handleRouteChange}/>
-        <Content refreshQueue={this.refreshQueue} matches = {this.props.matches} queue = {this.state.queue} interestedDog = {this.state.interestedDog} changeInterestedDog = {this.changeInterestedDog} changeRoute = {this.changeRoute} route={this.state.route} user={this.props.user}/>
+        <Content refreshQueue={this.refreshQueue} allusers = {this.props.allusers} queue = {this.state.queue} interestedDog = {this.state.interestedDog} changeInterestedDog = {this.changeInterestedDog} changeRoute = {this.changeRoute} route={this.state.route} user={this.props.user} currentMatches={this.props.currentMatches}/>
       </View>
     );
   }

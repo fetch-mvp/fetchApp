@@ -12,72 +12,40 @@ export default class Fetch extends React.Component {
     this.state={
       login: false,
       user: {},
-      matches: [],
     }
-    this.getAllUsers = this.getAllUsers.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
-    this.getAllMatches = this.getAllMatches.bind(this);
+    this.getCurrentMatches = this.getCurrentMatches.bind(this);
   }
+
 
   handleLogin = (user) => {
-    this.setState({login:true, user},
-      () => this.getAllUsers())
+    this.setState({login:true, user})
   }
 
-  getAllUsers() {
-    let arr = [];
-    axios.get('http://localhost:3000/api/gabi/getall')
-      .then(data => {
-        let userinfo = data.data;
-        // console.log(userinfo)
-        let usermatches = this.state.user.matches;
+  getCurrentMatches() {
+    let id = this.props.user._id
+    let that = this;
 
-        for (let i = 0; i < userinfo.length; i++) {
-          for (let j = 0; j < usermatches.length; j++) {
-            if (userinfo[i].id === usermatches[j] && arr.length !== usermatches.length) {
-              arr.push(userinfo[i])
-            }
-          }
-        }
+    axios
+      .get(`http://localhost:3000/api/gabi/getall`)
+      .then(res => {
+        let currentMatches = res.data.filter(x => (x._id === id ))[0].matches; 
+        let matchedUsers = res.data.filter(x => currentMatches.includes(x.id));
+        
         this.setState({
-          matches: arr
+          matches: matchedUsers
         })
-        console.log(this.state.matches)
       })
-      .catch(err => console.error(err))
-  }
-  
-
-
-  getAllMatches() {
-    let arr = [];
-    axios.get('http://localhost:3000/api/gabi/getall')
-      .then(data => {
-        let usermatches = this.state.user.matches;
-        let allusers = data.data
-
-        for (let i = 0; i < allusers.length; i++) {
-          for (let j = 0; j < usermatches.length; j++) {
-            if (allusers[i].id === usermatches[j] && arr.length <= usermatches.length) {
-              arr.push(allusers[i])
-            }
-          }
-        }
-      })
-      .then(() => this.setState({
-        matches: arr
-      }))
-      .catch(err => console.error(err))
+      .catch(err => console.log(err))
   }
 
   render(){
-    
+
     return (
       <View style={{height: '100%'}}>
         {
           (!this.state.login)
           ? <Login handleLogin={this.handleLogin}/>
-          : <Main user={this.state.user} matches={this.state.matches}/>
+          : <Main user={this.state.user} currentMatches={this.state.getCurrentMatches}/>
         }
       </View>
     );
