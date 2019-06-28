@@ -68,11 +68,14 @@ export default class Nav extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  NavBarStyle: {
-    height: '10%'
+  NavBarStyle : {
+    height: '10%',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
-  statusbar: {
+  statusbar : {
     backgroundColor: 'white',
     height: 30
   }
-});
+})
