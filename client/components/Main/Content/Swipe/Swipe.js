@@ -134,14 +134,9 @@ export default class Swipe extends React.Component {
               );
             }}
             onSwipedLeft={cardIndex => {
-              console.log("you are: ", this.props.user.id);
               this.pushSwipe(
                 this.props.user._id,
                 this.props.queue[cardIndex]._id
-              );
-              console.log(
-                "you hate this dog: ",
-                this.props.queue[cardIndex].userName
               );
             }}
             onSwipedRight={cardIndex => {
@@ -153,21 +148,12 @@ export default class Swipe extends React.Component {
                 this.props.user._id,
                 this.props.queue[cardIndex].id
               );
-              console.log(
-                "you love this dog: ",
-                this.props.queue[cardIndex].userName
-              );
               if (
                 this.props.queue[cardIndex].preferences.includes(
                   this.props.user.id
                 )
               ) {
                 // this is a match!!
-                console.log(
-                  `there is a match between: ${this.props.user.id} and ${
-                    this.props.queue[cardIndex].id
-                  }`
-                );
                 this.addMatches(
                   this.props.user._id,
                   this.props.queue[cardIndex].id
@@ -177,7 +163,6 @@ export default class Swipe extends React.Component {
                   this.props.user.id
                 );
                 this.toggleModal();
-                // so a pop up
               }
             }}
             onSwipedAll={() => {
