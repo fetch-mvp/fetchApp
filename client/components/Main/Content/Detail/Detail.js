@@ -54,6 +54,7 @@ export default class MoreInfo extends React.Component {
           <Text style={styles.textContainer}>{"Gender: " + (this.props.interestedDog.animalGender? "Male": "Female")}</Text>
           <Text style={styles.textContainer}>{"Location: " + this.props.interestedDog.userLocation}</Text>
         <Text style={styles.textContainer}>{"Description: " + this.props.interestedDog.description}</Text>
+        <Text style={styles.textContainer}>{"Size: " + this.props.interestedDog.animalSize}</Text>
         </View>
       </View>
     );
