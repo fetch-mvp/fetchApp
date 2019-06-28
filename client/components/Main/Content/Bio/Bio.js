@@ -8,6 +8,7 @@ import {
   ImageBackground
 } from 'react-native';
 // import EditProfile from './EditProfile.js';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 export default class Bio extends React.Component {
   constructor(props) {
@@ -20,16 +21,15 @@ export default class Bio extends React.Component {
   }
 
   setModalVisible = () => {
-    console.log('hey ==> ');
     this.setState({ isVisible: false });
   };
 
   render() {
     // console.log('user: ', this.props.user);
-
+    const icon = <FontAwesome5 name={'paw'} style={styles.paw} />;
     return (
       <View>
-        <Text style={styles.profile}>Profile</Text>
+        <Text style={styles.profile}>Profile {icon}</Text>
 
         <View style={styles.imageContainer}>
           <Image
@@ -51,17 +51,14 @@ export default class Bio extends React.Component {
               {this.props.user.description}
             </Text>
           </View>
-          <Button
-            title="Edit Profile"
-            onPress={() => this.props.changeRoute('chat')}
-          />
-        </View>
-
-        {/* {!this.state.isVisible && (
-          <View>
-            <EditProfile user={this.props.user} />
+          <View style={styles.button}>
+            <Button
+              title="Edit Profile"
+              onPress={() => this.props.changeRoute('chat')}
+              styling={styles.button}
+            />
           </View>
-        )} */}
+        </View>
       </View>
     );
   }
@@ -81,10 +78,10 @@ const styles = StyleSheet.create({
   name: {
     justifyContent: 'center',
     // paddingTop: 200,
-    paddingBottom: 20,
+    paddingBottom: 5,
     paddingLeft: 10,
     fontSize: 30,
-    fontFamily: 'GillSans-SemiBoldItalic',
+    fontFamily: 'GillSans',
     color: '#3EC1E1'
   },
   profile: {
@@ -92,21 +89,27 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingTop: 20,
     fontSize: 40,
-    fontFamily: 'GillSans-SemiBoldItalic'
+    fontFamily: 'GillSans'
   },
 
   textContainer2: {
     paddingLeft: 8,
     color: '#fff',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontSize: 15
   },
   textbox: {
-    borderRadius: 10,
-    backgroundColor: '#3EC1E1'
-    // paddingTop: 20,
-    // paddingBottom: 20,
-    // paddingLeft: 10,
-    // paddingRight: 10
+    backgroundColor: '#3EC1E1',
+    paddingTop: 50,
+    paddingBottom: 60,
+    paddingLeft: 10,
+    paddingRight: 10
+  },
+  button: {
+    paddingTop: 36
+  },
+  paw: {
+    fontSize: 25
   }
 });
 //3EC1E1 background color
