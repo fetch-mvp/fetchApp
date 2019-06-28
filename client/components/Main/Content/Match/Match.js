@@ -1,22 +1,18 @@
 import React from 'react';
 import axios from 'axios';
-// import Chat from '../Chat/Chat';
+// import Chat from '../Chat/EditProfile';
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
-
-
 
 export default class Match extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      chat: null,
-      // matches: [],
-    }
-    // this.getCurrentMatches = this.getCurrentMatches.bind(this);
+      chat: null
+    };
   }
 
   componentDidMount() {
-    this.props.currentMatches()
+    this.props.currentMatches();
   }
 
   // getCurrentMatches() {
@@ -26,9 +22,9 @@ export default class Match extends React.Component {
   //   axios
   //     .get(`http://localhost:3000/api/gabi/getall`)
   //     .then(res => {
-  //       let currentMatches = res.data.filter(x => (x._id === id ))[0].matches; 
+  //       let currentMatches = res.data.filter(x => (x._id === id ))[0].matches;
   //       let matchedUsers = res.data.filter(x => currentMatches.includes(x.id));
-        
+
   //       this.setState({
   //         matches: matchedUsers
   //       })
@@ -43,20 +39,26 @@ export default class Match extends React.Component {
           <Text style={styles.title}>Matches</Text>
           <ScrollView>
             {this.props.matches.map((match, key) => {
-              return <View style={styles.container} key={key}>
-                <Image style={styles.images} source={{ uri: `${match.images[0]}` }} onPress={() => this.grabCurrentChat()} />
-                <Text style={styles.username} >{match.userName}</Text>
-              </View>
+              return (
+                <View style={styles.container} key={key}>
+                  <Image
+                    style={styles.images}
+                    source={{ uri: `${match.images[0]}` }}
+                    onPress={() => this.grabCurrentChat()}
+                  />
+                  <Text style={styles.username}>{match.userName}</Text>
+                </View>
+              );
             })}
           </ScrollView>
         </View>
-      )
+      );
     } else {
       return (
         <View>
           <Text> Pending </Text>
         </View>
-      )
+      );
     }
   }
 }
@@ -77,18 +79,18 @@ const styles = StyleSheet.create({
     right: 1,
     flex: 1,
     flexWrap: 'wrap',
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   images: {
     width: 150,
     height: 150,
     borderRadius: 75,
     paddingLeft: 10,
-    margin: 20,
+    margin: 20
     // borderStyle: 'solid'
   },
   username: {
     alignSelf: 'center',
-    paddingLeft: 70,
+    paddingLeft: 70
   }
-})
+});

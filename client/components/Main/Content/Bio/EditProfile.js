@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import {
   Modal,
   Text,
+  TouchableHighlight,
   View,
   Alert,
   StyleSheet,
   Button,
   Image,
-  Platform
+  Platform,
+  ImageBackground,
+  TouchableOpacity
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
@@ -33,7 +36,7 @@ const createFormData = (photo, body) => {
 
 export default class EditProfile extends Component {
   state = {
-    modalVisible: true,
+    modalVisible: false,
     photo: null,
     images: [],
     showPhoto: false,
@@ -165,7 +168,13 @@ export default class EditProfile extends Component {
                   this.handleUploadPhoto();
                 }}
               />
-              <Button title="X" onPress={() => this.props.changeRoute('bio')} />
+              <Button
+                title="X"
+                onPress={() => {
+                  // this.setModalVisible();
+                  this.props.changeRoute('edit');
+                }}
+              />
             </View>
           </View>
         </Modal>
@@ -194,3 +203,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#3EC1E1'
   }
 });
+
+//    <TouchableHighlight
+//     onPress={() => {
+//       this.setModalVisible(!this.state.modalVisible);
+//     }}
+//   >
+// </TouchableHighlight>
