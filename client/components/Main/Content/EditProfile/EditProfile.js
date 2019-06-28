@@ -31,7 +31,7 @@ const createFormData = (photo, body) => {
   return data;
 };
 
-export default class Chat extends Component {
+export default class EditProfile extends Component {
   state = {
     modalVisible: true,
     photo: null,
