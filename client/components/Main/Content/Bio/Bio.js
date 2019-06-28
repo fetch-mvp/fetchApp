@@ -8,7 +8,7 @@ import {
   ImageBackground
 } from 'react-native';
 // import EditProfile from './EditProfile.js';
-import Icon from 'react-native-vector-icons/FontAwesome'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 export default class Bio extends React.Component {
   constructor(props) {
@@ -26,10 +26,10 @@ export default class Bio extends React.Component {
 
   render() {
     // console.log('user: ', this.props.user);
-
+    const icon = <FontAwesome5 name={'paw'} style={styles.paw} />;
     return (
       <View>
-        <Text style={styles.profile}>Profile</Text>
+        <Text style={styles.profile}>Profile {icon}</Text>
 
         <View style={styles.imageContainer}>
           <Image
@@ -107,6 +107,9 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingTop: 36
+  },
+  paw: {
+    fontSize: 25
   }
 });
 //3EC1E1 background color
