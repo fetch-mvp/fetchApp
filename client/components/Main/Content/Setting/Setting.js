@@ -22,9 +22,9 @@ export default class Setting extends React.Component {
   updateRequest() {
     let {maxDistance, preferredSize, preferredGender} = this.state
     let id = this.props.user.id;
-    console.log("user id ===> ", id)
+    console.log(this.props)
     axios
-      .put(`http://localhost:3000/api/gabi/update`, {id, maxDistance, preferredSize, preferredGender})
+      .put(`http://localhost:3000/api/gabi/update/${id}`, {maxDistance, preferredSize, preferredGender})
       .then((data) => {
         console.log("axios data : " , data)
       })

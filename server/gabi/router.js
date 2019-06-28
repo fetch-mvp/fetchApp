@@ -25,10 +25,10 @@ routes.get('/getall', (req, res) => {
 	})
 })
 
-routes.put('/update', (req, res) => {
-	let {id, maxDistance, preferredGender, preferredSize} = req.body;
-	console.log("====>", id)
-	Fetch.findOneAndUpdate({id : Number(id)}, {$set: {maxDistance, preferredGender, preferredSize}}, (err, docs) => {
+routes.put('/update/:id', (req, res) => {
+	let {maxDistance, preferredGender, preferredSize} = req.body;
+	let {id} = req.params;
+	Fetch.findOneAndUpdate({id}, {$set: {maxDistance, preferredGender, preferredSize}}, (err, docs) => {
 		if (err) {
 			console.log("mongo db error : " , err)
 			res.status(404).send(err)

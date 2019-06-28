@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, Button, ImageBackground } from "react-native";
-// import Swiper from "react-native-deck-swiper";
+import Swiper from "react-native-deck-swiper";
 import axios from "axios";
 import Modal from "react-native-modal";
 
