@@ -7,6 +7,7 @@ import Swipe from './Swipe/Swipe';
 import Detail from './Detail/Detail';
 import Match from './Match/Match';
 import Chat from './Chat/Chat';
+// import Edit from './Bio/Edit';
 
 const Content = ({
   route,
@@ -45,7 +46,11 @@ const Content = ({
   } else if (route === 'match') {
     return <Match user={user} />;
   } else if (route === 'chat') {
-    return <Chat user={user} />;
+    return <Chat user={user} changeRoute={changeRoute} />;
   }
+  // } else if (route === 'edit') {
+  //   console.log("edittttt")
+  //   return <View><Text>hi</Text></View>
+  // }
 };
 export default Content;

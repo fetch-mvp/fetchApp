@@ -9,7 +9,8 @@ import {
   Button,
   Image,
   Platform,
-  ImageBackground
+  ImageBackground,
+  TouchableOpacity
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
@@ -19,7 +20,7 @@ const createFormData = (photo, body) => {
   const data = new FormData();
 
   let editedPhotoUri = photo.slice(7);
-
+  console.log(editedPhotoUri);
   data.append('photo', {
     name: photo.fileName,
     type: photo.type,
@@ -35,7 +36,7 @@ const createFormData = (photo, body) => {
 
 export default class EditProfile extends Component {
   state = {
-    modalVisible: true,
+    modalVisible: false,
     photo: null,
     images: [],
     showPhoto: false,
@@ -47,14 +48,19 @@ export default class EditProfile extends Component {
     this.getPermissionAsync();
   }
 
+  setModalVisible = () => {
+    this.setState({
+      modalVisible: false
+    });
+  };
   handleUploadPhoto = () => {
     axios
       .post('http://localhost:3000/api/wendy/upload', {
         photo: createFormData(this.state.photo, { _id: this.props.user._id })
       })
       .then(() => {
-        alert('Successfully Posted');
-        this.setState({ photo: null }); // should set state to new uri
+        alert('Picture Updated');
+        this.setState({ photo: null });
       })
       .catch(err => {
         alert('Failed to upload');
@@ -82,6 +88,7 @@ export default class EditProfile extends Component {
       aspect: [4, 3]
     });
     let uri = result.uri.slice(7);
+
     this.setState({ updatedUri: uri, photo: result.uri });
 
     if (!result.cancelled) {
@@ -105,42 +112,43 @@ export default class EditProfile extends Component {
     const { photo } = this.state;
 
     return (
-      <View style={{ marginTop: 22 }}>
+      <View>
         <Modal
           animationType="slide"
           transparent={false}
           visible={this.state.modalVisible}
           onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
+            this.setModalVisible();
           }}
+          style={styles.container}
         >
           <View style={{ marginTop: 22 }}>
             <View>
-              <Text>Update Profile</Text>
+              <Text style={styles.profile}>Update Profile</Text>
             </View>
             <View
-              style={
-                {
-                  // flex: 1,
-                  // paddingTop: 400,
-                  // alignItems: 'center',
-                  // justifyContent: 'center'
-                }
-              }
+              style={{
+                // flex: 1,
+                paddingTop: 50,
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
             >
               <View>
                 {photo ? (
                   <Image
                     source={{ uri: `${this.state.updatedUri}` }}
-                    style={{ width: 100, height: 100 }}
+                    style={styles.image}
                   />
                 ) : (
                   <Image
                     source={{ uri: `${this.props.user.images[0]}` }}
-                    style={{ width: 100, height: 100 }}
+                    style={styles.image}
                   />
                 )}
               </View>
+            </View>
+            <View style={styles.buttons}>
               <Button
                 title="Choose Photo"
                 onPress={() => {
@@ -160,6 +168,13 @@ export default class EditProfile extends Component {
                   this.handleUploadPhoto();
                 }}
               />
+              <Button
+                title="X"
+                onPress={() => {
+                  // this.setModalVisible();
+                  this.props.changeRoute('edit');
+                }}
+              />
             </View>
           </View>
         </Modal>
@@ -168,12 +183,26 @@ export default class EditProfile extends Component {
   }
 }
 
-// const styles = StyleSheet.create({
-//   test: {
-//     alignSelf: 'flex-end',
-//     paddingTop: 500
-//   }
-// });
+const styles = StyleSheet.create({
+  image: {
+    width: 330,
+    height: 330,
+    borderRadius: 150
+  },
+  buttons: {
+    paddingTop: 150
+  },
+  profile: {
+    fontSize: 30,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    paddingTop: 20,
+    fontWeight: 'bold'
+  },
+  container: {
+    backgroundColor: '#3EC1E1'
+  }
+});
 
 //    <TouchableHighlight
 //     onPress={() => {
