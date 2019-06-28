@@ -20,6 +20,10 @@ export default class Nav extends React.Component {
             title="Settings"
           />
           <Button 
+            onPress={() => this.props.handleRouteChange("editProfile")}
+            title="Edit profile"
+          />
+          <Button 
             onPress={() => this.props.handleRouteChange("swipe")}
             title="Swipe"
           />
@@ -86,7 +90,10 @@ export default class Nav extends React.Component {
 
 const styles = StyleSheet.create({
   NavBarStyle : {
-    height: '10%'
+    height: '10%',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   statusbar : {
     backgroundColor: 'white',

@@ -9,13 +9,14 @@ export default class Fetch extends React.Component {
     super(props)
     this.state={
       login: false,
-      user: {}
-    };
+      user: {},
+      newUser: false 
+    }
   }
 
-  handleLogin = user => {
-    this.setState({ login: true, user });
-  };
+  handleLogin = data => {
+    this.setState({ login: true, user: data.data, newUser: data.new});
+  }
 
   render(){
     return (
@@ -23,7 +24,7 @@ export default class Fetch extends React.Component {
         {
           (!this.state.login)
           ? <Login handleLogin={this.handleLogin}/>
-          : <Main user={this.state.user}/>
+          : <Main user={this.state.user} newnewUser={this.state.newUser}/>
         }
       </View>
     );
