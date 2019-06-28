@@ -60,7 +60,7 @@ export default class Main extends React.Component {
 
   render() {
     return (
-      <View style={{ height: '100%' }}>
+      <View style={{ height: '100%', width:'100%' }}>
         <Nav
           route={this.state.route}
           handleRouteChange={this.handleRouteChange}
