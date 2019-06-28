@@ -22,6 +22,7 @@ routes.get('/getall', (req, res) => {
 		} else {
 			res.status(200).send(docs)
 		}
+		//hello
 	})
 })
 
