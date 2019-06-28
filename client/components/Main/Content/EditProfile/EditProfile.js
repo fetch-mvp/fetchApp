@@ -59,7 +59,7 @@ export default class EditProfile extends Component {
       })
       .then(() => {
         alert('Profile Updated');
-        this.setState({ photo: null });
+        // this.setState({ photo: null });
       })
       .catch(err => {
         alert('Profile Updated');
@@ -88,7 +88,7 @@ export default class EditProfile extends Component {
     });
     let uri = result.uri.slice(7);
     console.log(result.uri);
-    this.setState({ updatedUri: uri, photo: result.uri });
+    this.setState({ photo: result.uri });
 
     if (!result.cancelled) {
       this.setState({ photo: result.uri });
