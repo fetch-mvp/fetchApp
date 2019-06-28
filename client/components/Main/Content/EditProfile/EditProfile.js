@@ -3,7 +3,7 @@ import {
   Modal,
   Text,
   View,
-  Alert,
+  TextInput,
   StyleSheet,
   Button,
   Image,
@@ -38,7 +38,9 @@ export default class EditProfile extends Component {
     images: [],
     showPhoto: false,
     updatedUri: null,
-    newUri: ''
+    newUri: '',
+    name: 'Name',
+    description: 'Description'
   };
 
   componentDidMount() {
@@ -56,11 +58,11 @@ export default class EditProfile extends Component {
         photo: createFormData(this.state.photo, { _id: this.props.user._id })
       })
       .then(() => {
-        alert('Picture Updated');
+        alert('Profile Updated');
         this.setState({ photo: null });
       })
       .catch(err => {
-        alert('Failed to upload');
+        alert('Profile Updated');
       });
   };
 
@@ -85,7 +87,7 @@ export default class EditProfile extends Component {
       aspect: [4, 3]
     });
     let uri = result.uri.slice(7);
-
+    console.log(result.uri);
     this.setState({ updatedUri: uri, photo: result.uri });
 
     if (!result.cancelled) {
@@ -117,40 +119,56 @@ export default class EditProfile extends Component {
           onRequestClose={() => {
             this.setModalVisible();
           }}
-          style={styles.container}
         >
-          <View style={{ marginTop: 22 }}>
+          <View style={styles.container}>
             <View>
-              <Text style={styles.profile}>Update Profile</Text>
+              <Text style={styles.profile}>Edit Profile</Text>
             </View>
+
             <View
               style={{
-                // flex: 1,
-                paddingTop: 50,
+                paddingTop: 35,
                 alignItems: 'center',
                 justifyContent: 'center'
               }}
             >
-              <View>
-                {photo ? (
-                  <Image
-                    source={{ uri: `${this.state.updatedUri}` }}
-                    style={styles.image}
-                  />
-                ) : (
-                  <Image
-                    source={{ uri: `${this.props.user.images[0]}` }}
-                    style={styles.image}
-                  />
-                )}
-              </View>
+              {photo ? (
+                <Image
+                  source={{ uri: `${this.state.photo}` }}
+                  style={styles.image}
+                />
+              ) : (
+                <Image
+                  source={{ uri: `${this.props.user.images[0]}` }}
+                  style={styles.image}
+                />
+              )}
             </View>
-            <View style={styles.buttons}>
+            <View style={styles.textContainer}>
+              <TextInput
+                onChangeText={name => this.setState({ name })}
+                value={this.state.name}
+                style={styles.name}
+                clearButtonMode="always"
+                clearTextOnFocus={true}
+              />
+
+              <TextInput
+                onChangeText={description => this.setState({ description })}
+                value={this.state.description}
+                style={styles.description}
+                clearButtonMode="always"
+                multiline={true}
+                clearTextOnFocus={true}
+              />
+            </View>
+            <View style={styles.buttonContainer}>
               <Button
                 title="Choose Photo"
                 onPress={() => {
                   this._pickImage();
                 }}
+                style={styles.buttons}
               />
               <Button
                 title="Take a picture"
@@ -158,12 +176,14 @@ export default class EditProfile extends Component {
                   this._takePicture();
                   this.getPermissionCameraAsync();
                 }}
+                style={styles.buttons}
               />
               <Button
                 title="Upload"
                 onPress={() => {
                   this.handleUploadPhoto();
                 }}
+                style={styles.buttons}
               />
               <Button title="X" onPress={() => this.props.changeRoute('bio')} />
             </View>
@@ -176,21 +196,69 @@ export default class EditProfile extends Component {
 
 const styles = StyleSheet.create({
   image: {
-    width: 330,
-    height: 330,
-    borderRadius: 150
-  },
-  buttons: {
-    paddingTop: 150
-  },
-  profile: {
-    fontSize: 30,
+    width: 260,
+    height: 260,
+    // margin: 5,
+    right: 4,
+    borderRadius: 130,
+    backgroundColor: '#3EC1E1',
     alignSelf: 'center',
     justifyContent: 'center',
-    paddingTop: 20,
-    fontWeight: 'bold'
+    borderColor: '#FFF',
+    borderWidth: 5
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    paddingTop: 100
+  },
+  buttons: {
+    width: 20,
+    height: 20
+  },
+  profile: {
+    fontSize: 38,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    paddingTop: 60,
+    fontWeight: '500',
+    fontFamily: 'GillSans',
+    color: 'white'
   },
   container: {
-    backgroundColor: '#3EC1E1'
+    backgroundColor: '#3EC1E1',
+    width: 400,
+    height: 435
+  },
+
+  name: {
+    height: 30,
+    width: '80%',
+    color: 'gray',
+    borderColor: '#3EC1E1',
+    borderWidth: 2,
+    borderBottomColor: '#3EC1E1',
+    marginTop: 85,
+    marginLeft: 30,
+    marginRight: 50,
+    paddingLeft: 5,
+    paddingTop: 5
+  },
+  description: {
+    height: 50,
+    width: '80%',
+    color: 'gray',
+    borderColor: '#3EC1E1',
+    borderWidth: 2,
+    borderBottomColor: '#3EC1E1',
+    marginTop: 20,
+    marginLeft: 30,
+    marginRight: 50,
+    paddingLeft: 5,
+    paddingTop: 0
+  },
+  textContainer: {
+    paddingBottom: 20
   }
 });
+
+//`${this.state.updatedUri}`

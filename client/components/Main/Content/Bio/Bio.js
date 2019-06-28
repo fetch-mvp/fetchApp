@@ -20,7 +20,6 @@ export default class Bio extends React.Component {
   }
 
   setModalVisible = () => {
-    console.log('hey ==> ');
     this.setState({ isVisible: false });
   };
 
@@ -51,17 +50,13 @@ export default class Bio extends React.Component {
               {this.props.user.description}
             </Text>
           </View>
-          <Button
-            title="Edit Profile"
-            onPress={() => this.props.changeRoute('chat')}
-          />
-        </View>
-
-        {/* {!this.state.isVisible && (
-          <View>
-            <EditProfile user={this.props.user} />
+          <View style={styles.button}>
+            <Button
+              title="Edit Profile"
+              onPress={() => this.props.changeRoute('chat')}
+            />
           </View>
-        )} */}
+        </View>
       </View>
     );
   }
@@ -102,11 +97,14 @@ const styles = StyleSheet.create({
   },
   textbox: {
     borderRadius: 10,
-    backgroundColor: '#3EC1E1'
-    // paddingTop: 20,
-    // paddingBottom: 20,
-    // paddingLeft: 10,
-    // paddingRight: 10
+    backgroundColor: '#3EC1E1',
+    paddingTop: 60,
+    paddingBottom: 60,
+    paddingLeft: 10,
+    paddingRight: 10
+  },
+  button: {
+    paddingTop: 36
   }
 });
 //3EC1E1 background color
