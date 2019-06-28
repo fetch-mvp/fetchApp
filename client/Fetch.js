@@ -12,6 +12,7 @@ export default class Fetch extends React.Component {
     this.state={
       login: false,
       user: {},
+      matches: [],
     }
     this.getCurrentMatches = this.getCurrentMatches.bind(this);
   }
@@ -22,7 +23,7 @@ export default class Fetch extends React.Component {
   }
 
   getCurrentMatches() {
-    let id = this.props.user._id
+    let id = this.state.user._id
     let that = this;
 
     axios
@@ -45,7 +46,7 @@ export default class Fetch extends React.Component {
         {
           (!this.state.login)
           ? <Login handleLogin={this.handleLogin}/>
-          : <Main user={this.state.user} currentMatches={this.state.getCurrentMatches}/>
+          : <Main user={this.state.user} currentMatches={this.getCurrentMatches} matches={this.state.matches}/>
         }
       </View>
     );

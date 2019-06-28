@@ -89,6 +89,7 @@ export default class Swipe extends React.Component {
             onPress={() => {
               this.props.changeRoute("bio");
               this.props.refreshQueue();
+              this.props.currentMatches();
             }}
             title="Profile"
           />
@@ -100,6 +101,7 @@ export default class Swipe extends React.Component {
             onPress={() => {
               this.props.changeRoute("match");
               this.props.refreshQueue();
+              this.props.currentMatches();
             }}
             title="Matches"
           />
