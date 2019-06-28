@@ -11,13 +11,17 @@ const FetchSchema = new mongoose.Schema({
     type: String
   },
   userEmail: {
-    type: String
+    type: String,
+    unique: true
   },
   userLocation: {
     type: String //zipcode
   },
-  userSettingMiles: {
-    type: Number
+  maxDistance: {
+    type: Number,
+    default: () => {
+      return 100;
+    }
   },
   description: {
     type: String
@@ -37,7 +41,20 @@ const FetchSchema = new mongoose.Schema({
   animalSize: {
     type: String // 'S', 'M', 'L'
   },
-  swiped: []
+  swiped: [],
+  preferredGender: {
+    type: String,
+    default: () => {
+      return "No preference";
+    }
+  },
+  preferredSize: {
+    type: String,
+    default: () => {
+      return "No preference";
+    }
+  }
+
 });
 
 const Fetch = mongoose.model('fetchs', FetchSchema);

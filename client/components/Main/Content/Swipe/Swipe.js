@@ -1,178 +1,115 @@
-import React from 'react'; 
-import { StyleSheet, Text, View, Button, ImageBackground } from 'react-native';
+import React from "react";
+import { StyleSheet, Text, View, Button, ImageBackground } from "react-native";
 import Swiper from "react-native-deck-swiper";
+import axios from "axios";
+import Modal from "react-native-modal";
 
 export default class Swipe extends React.Component {
+  constructor(props) {
+    super(props);
 
-    constructor(props) {
-      super(props);
-  
-      this.state = {
-  
-        pets : [
-          {
-            "_id": "5d128ac0c204f61ee7dbf664",
-            "id": 1,
-            "username": "AgustinaDoogle",
-            "password": "password",
-            "email": "AgustinaDoogle@google.com",
-            "preferences": [],
-            "matches": [],
-            "images": [
-              "https://mvp-fetch-app.s3-us-west-1.amazonaws.com/Dog+Pictures/chowcow.jpg",
-              "https://mvp-fetch-app.s3-us-west-1.amazonaws.com/Dog+Pictures/chowcow.jpg",
-              "https://mvp-fetch-app.s3-us-west-1.amazonaws.com/Dog+Pictures/chowcow.jpg"
-            ],
-            "animalgender": "male",
-            "description": "I'm just a small town dog that needs some new friends",
-            "location": "Glendale"
-          },
-          {
-            "_id": "5d128ac0c204f61ee7dbf665",
-            "id": 2,
-            "username": "ReynaDoogle",
-            "password": "password",
-            "email": "ReynaDoogle@google.com",
-            "preferences": [],
-            "matches": [],
-            "images": [
-              "https://mvp-fetch-app.s3-us-west-1.amazonaws.com/Dog+Pictures/corgi.jpg"
-            ],
-            "animalgender": "male",
-            "description": "I'm just a small town dog that needs some new friends",
-            "location": "Venice"
-          },
-          {
-            "_id": "5d128ac0c204f61ee7dbf666",
-            "id": 3,
-            "username": "KeanuDoge",
-            "password": "password",
-            "email": "KeanuDoge@google.com",
-            "preferences": [],
-            "matches": [],
-            "images": [
-              "https://mvp-fetch-app.s3-us-west-1.amazonaws.com/Dog+Pictures/germanshepherd.jpg"
-            ],
-            "animalgender": "male",
-            "description": "I'm just a small town dog that needs some new friends",
-            "location": "South Pasadena"
-          },
-          {
-            "_id": "5d128ac0c204f61ee7dbf667",
-            "id": 4,
-            "username": "WatsonDoogle",
-            "password": "password",
-            "email": "WatsonDoogle@google.com",
-            "preferences": [],
-            "matches": [],
-            "images": [
-              "https://mvp-fetch-app.s3-us-west-1.amazonaws.com/Dog+Pictures/goldenR.jpg"
-            ],
-            "animalgender": "male",
-            "description": "I'm just a small town dog that needs some new friends",
-            "location": "South Pasadena"
-          },
-          {
-            "_id": "5d128ac0c204f61ee7dbf668",
-            "id": 5,
-            "username": "SabinaDoogle",
-            "password": "password",
-            "email": "SabinaDoogle@google.com",
-            "preferences": [],
-            "matches": [],
-            "images": [
-              "https://mvp-fetch-app.s3-us-west-1.amazonaws.com/Dog+Pictures/goldenretrieversheperd.jpg"
-            ],
-            "animalgender": "male",
-            "description": "I'm just a small town dog that needs some new friends",
-            "location": "Santa Monica"
-          },
-          {
-            "_id": "5d128ac0c204f61ee7dbf669",
-            "id": 6,
-            "username": "ErnestoDoogle",
-            "password": "password",
-            "email": "ErnestoDoogle@google.com",
-            "preferences": [],
-            "matches": [],
-            "images": [
-              "https://mvp-fetch-app.s3-us-west-1.amazonaws.com/Dog+Pictures/pitbull.jpg"
-            ],
-            "animalgender": "male",
-            "description": "I'm just a small town dog that needs some new friends",
-            "location": "Santa Monica"
-          },
-          {
-            "_id": "5d128ac0c204f61ee7dbf66a",
-            "id": 7,
-            "username": "FletaDoogle",
-            "password": "password",
-            "email": "FletaDoogle@google.com",
-            "preferences": [],
-            "matches": [],
-            "images": [
-              "https://mvp-fetch-app.s3-us-west-1.amazonaws.com/Dog+Pictures/popeye.jpg"
-            ],
-            "animalgender": "male",
-            "description": "I'm just a small town dog that needs some new friends",
-            "location": "Santa Monica"
-          },
-          {
-            "_id": "5d128ac0c204f61ee7dbf66b",
-            "id": 8,
-            "username": "EfrenDoge",
-            "password": "password",
-            "email": "EfrenDoge@google.com",
-            "preferences": [],
-            "matches": [],
-            "images": [
-              "https://mvp-fetch-app.s3-us-west-1.amazonaws.com/Dog+Pictures/shiba-inu-corgi-mix.jpg"
-            ],
-            "animalgender": "male",
-            "description": "I'm just a small town dog that needs some new friends",
-            "location": "Glendale"
-          },
-          {
-            "_id": "5d128ac0c204f61ee7dbf66c",
-            "id": 9,
-            "username": "EleonoreDoogle",
-            "password": "password",
-            "email": "EleonoreDoogle@google.com",
-            "preferences": [],
-            "matches": [],
-            "images": [
-              "https://mvp-fetch-app.s3-us-west-1.amazonaws.com/Dog+Pictures/shiba.jpg"
-            ],
-            "animalgender": "male",
-            "description": "I'm just a small town dog that needs some new friends",
-            "location": "South Pasadena"
-          },
-          {
-            "_id": "5d128ac0c204f61ee7dbf66d",
-            "id": 10,
-            "username": "EbbaDoogle",
-            "password": "password",
-            "email": "EbbaDoogle@google.com",
-            "preferences": [],
-            "matches": [],
-            "images": [
-              "https://mvp-fetch-app.s3-us-west-1.amazonaws.com/Dog+Pictures/siberian-husky-price.jpg"
-            ],
-            "animalgender": "male",
-            "description": "I'm just a small town dog that needs some new friends",
-            "location": "Glendale"
-          }
-        ]
-  
-      };
-    }
-  
-  
-    render() {
-      return (
-        <View style={styles.container}>
+    this.state = {
+      isModalVisible: false
+    };
+    this.pushSwipe = this.pushSwipe.bind(this);
+    this.pushPreferences = this.pushPreferences.bind(this);
+    this.addMatches = this.addMatches.bind(this);
+  }
+
+  toggleModal = () => {
+    this.setState({ isModalVisible: !this.state.isModalVisible });
+  };
+
+  pushSwipe(currId, targetId) {
+    axios
+      .put("http://localhost:3000/api/calvin/swiped", {
+        currId,
+        targetId
+      })
+      .then(function(response) {
+        console.log("success push swiped!");
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  }
+
+  pushPreferences(currId, targetId) {
+    axios
+      .put("http://localhost:3000/api/calvin/preferences", {
+        currId,
+        targetId
+      })
+      .then(function(response) {
+        console.log("success push preferences!");
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  }
+
+  addMatches(receiverId, addId) {
+    axios
+      .put("http://localhost:3000/api/calvin/matches", {
+        receiverId,
+        addId
+      })
+      .then(function(response) {
+        console.log("success push matches!");
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Modal isVisible={this.state.isModalVisible}>
+          <View style={{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }}>
+            <Button title="Close" onPress={this.toggleModal} />
+            <Text style={{
+              textAlign: "center",
+    fontSize: 40,
+    backgroundColor: "transparent",
+    top: "3%",
+    color: "red",
+    fontFamily: 'GillSans-SemiBoldItalic'
+    }}>You got a new match!!</Text>
+          </View>
+        </Modal>
+        <View
+          style={{ position: "absolute", left: "2%", top: "3%", zIndex: 1 }}
+        >
+          <Button
+            onPress={() => {
+              this.props.changeRoute("bio");
+              this.props.refreshQueue();
+              this.props.currentMatches();
+            }}
+            title="Profile"
+          />
+        </View>
+        <View
+          style={{ position: "absolute", right: "2%", top: "3%", zIndex: 1 }}
+        >
+          <Button
+            onPress={() => {
+              this.props.changeRoute("match");
+              this.props.refreshQueue();
+              this.props.currentMatches();
+            }}
+            title="Matches"
+          />
+        </View>
+
+        {this.props.queue.length > 0 ? (
           <Swiper
-            cards={this.state.pets}
+            cards={this.props.queue}
             renderCard={card => {
               return (
                 <View style={styles.card}>
@@ -180,27 +117,56 @@ export default class Swipe extends React.Component {
                     source={{ uri: card.images[0] }}
                     style={{ width: "100%", height: "100%" }}
                   >
-                    <Text style={styles.text}>{card.username}</Text>
+                    <Text style={styles.text}>{card.userName}</Text>
                     <View style={styles.button}>
-                    <Button
-                      color = "black"
-                      onPress={() => {
-                        this.props.changeRoute('detail')
-                        this.props.changeInterestedDog(card);
-                        console.log(card._id);
-                      }}
-                      title="More Info"
-                    />
+                      <Button
+                        color="black"
+                        onPress={() => {
+                          this.props.changeRoute("detail");
+                          this.props.changeInterestedDog(card);
+                          console.log(card._id);
+                        }}
+                        title="More Info"
+                      />
                     </View>
                   </ImageBackground>
                 </View>
               );
             }}
-            onSwiped={cardIndex => {
-              console.log(cardIndex);
+            onSwipedLeft={cardIndex => {
+              this.pushSwipe(
+                this.props.user._id,
+                this.props.queue[cardIndex]._id
+              );
+            }}
+            onSwipedRight={cardIndex => {
+              this.pushSwipe(
+                this.props.user._id,
+                this.props.queue[cardIndex]._id
+              );
+              this.pushPreferences(
+                this.props.user._id,
+                this.props.queue[cardIndex].id
+              );
+              if (
+                this.props.queue[cardIndex].preferences.includes(
+                  this.props.user.id
+                )
+              ) {
+                // this is a match!!
+                this.addMatches(
+                  this.props.user._id,
+                  this.props.queue[cardIndex].id
+                );
+                this.addMatches(
+                  this.props.queue[cardIndex]._id,
+                  this.props.user.id
+                );
+                this.toggleModal();
+              }
             }}
             onSwipedAll={() => {
-              console.log("onSwipedAll");
+              console.log("you swiped everyone!");
             }}
             cardIndex={0}
             backgroundColor={"black"}
@@ -208,35 +174,36 @@ export default class Swipe extends React.Component {
             disableTopSwipe={true}
             disableBottomSwipe={true}
           />
-        </View>
-      );
-    }
+        ) : (
+          <View />
+        )}
+      </View>
+    );
   }
-  
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: "transparent"
-    },
-    card: {
-      flex: 1,
-      borderRadius: 4,
-      borderWidth: 2,
-      borderColor: "#E8E8E8",
-      justifyContent: "center",
-      backgroundColor: "white"
-    },
-    text: {
-      textAlign: "center",
-      fontSize: 40,
-      backgroundColor: "transparent",
-      top:"3%"
-    },
-    button: {
-      position: 'absolute',
-      bottom:"3%",
-      right: "0%"
-    }
-  });
-  
+}
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "transparent"
+  },
+  card: {
+    flex: 1,
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: "#E8E8E8",
+    justifyContent: "center",
+    backgroundColor: "white"
+  },
+  text: {
+    textAlign: "center",
+    fontSize: 40,
+    backgroundColor: "transparent",
+    top: "3%"
+  },
+  button: {
+    position: "absolute",
+    bottom: "3%",
+    right: "0%"
+  }
+});

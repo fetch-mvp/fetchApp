@@ -1,5 +1,12 @@
 import React from "react";
-import { StyleSheet, Text, View, Button, ImageBackground, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  ImageBackground,
+  Image
+} from "react-native";
 import { Pages } from "react-native-pages";
 
 export default class MoreInfo extends React.Component {
@@ -10,30 +17,56 @@ export default class MoreInfo extends React.Component {
   }
 
   render() {
-    const listImages = this.props.interestedDog.images.map((url, idx)=>
-    <ImageBackground
-    key = {idx}
-    source={{ uri: url }}
-    style={{ width: "100%", height: "100%", top: "0%" }}
-    imageStyle={{resizeMode: 'cover'}}
-  />
-    )
+    const listImages = this.props.interestedDog.images.map((url, idx) => (
+      <ImageBackground
+        key={idx}
+        source={{ uri: url }}
+        style={{ width: "100%", height: "100%", top: "0%" }}
+        imageStyle={{ resizeMode: "cover" }}
+      />
+    ));
     return (
-      <View style={{ width: "100%", height: "100%"}}>
-        <View style={{position: 'absolute', left: "2%", top: "3%", zIndex: 1}}><Button onPress = {()=>{this.props.changeRoute('swipe')}} title="Back" /></View>
-        <View style={{ width: "100%", height: "60%"}}>
-        <Pages containerStyle={{}}>
-          {listImages}
-        </Pages>
+      <View style={{ width: "100%", height: "100%", backgroundColor:"black" }}>
+        <View
+          style={{ position: "absolute", left: "2%", top: "3%", zIndex: 1 }}
+        >
+          <Button
+            onPress={() => {
+              this.props.changeRoute("swipe");
+            }}
+            title="Back"
+          />
         </View>
-        <Text>{this.props.interestedDog.username}</Text>
-        <Image style={{width: 13, height: 13}} source={{uri: "https://img.icons8.com/ios/50/000000/male-filled.png"}}></Image>
-        <Text>{this.props.interestedDog.animalgender}</Text>
-        <Text>{"Location: " + this.props.interestedDog.location}</Text>
-        <Text>{"Description: " + this.props.interestedDog.description}</Text>
+        <View style={{ width: "100%", height: "60%" }}>
+          <Pages containerStyle={{}}>{listImages}</Pages>
+        </View>
+        <View>
+          <Text
+            style={{
+              fontSize: 30,
+              fontFamily: "GillSans-SemiBoldItalic",
+              color: "white",
+              textAlign: "center"
+            }}
+          >
+            {this.props.interestedDog.userName}
+          </Text>
+          <Text style={styles.textContainer}>{"Gender: " + (this.props.interestedDog.animalGender? "Male": "Female")}</Text>
+          <Text style={styles.textContainer}>{"Location: " + this.props.interestedDog.userLocation}</Text>
+        <Text style={styles.textContainer}>{"Description: " + this.props.interestedDog.description}</Text>
+        <Text style={styles.textContainer}>{"Size: " + this.props.interestedDog.animalSize}</Text>
+        </View>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+
+  textContainer: {
+    color: 'white',
+    fontWeight: 'bold',
+    paddingLeft: 10
+  }
+
+});
