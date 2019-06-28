@@ -56,8 +56,30 @@ routes.post('/register', async (req,res)=> {
 	} catch(e) {
 		res.send({system: 'register fail'})
 	}
-	
-
 })
+
+routes.post('/firebaseAuth', async (req,res)=> {
+	const { editedName, email } = req.body
+	try{
+		let docs = await Fetch.findOneAndUpdate(
+			{
+				userEmail: email
+			}, 
+			{
+				userEmail: email, 
+				userName: editedName,
+				userPassword: 'firebase'
+			},
+			{
+				new : true,
+				upsert : true,
+			})
+		console.log("query result =>>>", docs)
+		res.send({system: 'login success', docs})
+	}catch(e){
+		res.send({system: 'login failed'})
+	}
+})
+
 
 module.exports = routes

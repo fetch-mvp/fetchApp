@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import Login from './components/Login/Login';
+import Login from './components/Login/SocialLogin';
 import Main from './components/Main/Main';
 
 export default class Fetch extends React.Component {
@@ -9,13 +9,12 @@ export default class Fetch extends React.Component {
     super(props)
     this.state={
       login: false,
-      user: {},
-      newUser: false 
+      user: {}
     }
   }
 
   handleLogin = data => {
-    this.setState({ login: true, user: data.data, newUser: data.new});
+    this.setState({ login: true, user: data.data });
   }
 
   render(){
@@ -23,8 +22,8 @@ export default class Fetch extends React.Component {
       <View style={{height: '100%'}}>
         {
           (!this.state.login)
-          ? <Login handleLogin={this.handleLogin}/>
-          : <Main user={this.state.user} newnewUser={this.state.newUser}/>
+          ? <Login handleLogin={this.handleLogin} />
+          : <Main user={this.state.user} />
         }
       </View>
     );
