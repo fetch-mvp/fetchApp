@@ -6,28 +6,35 @@ export default class Setting extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      maxDistance: `${this.props.user.maxDistance}` ,
+      maxDistance: `${this.props.user.maxDistance}`,
       preferredSize: `${this.props.user.preferredSize}`,
       preferredGender: `${this.props.user.preferredGender}`,
       genderpicker: false,
       locationpicker: false,
-      dogsizepicker: false
+      dogsizepicker: false,
+      updated: false
     };
     this.updateGender = this.updateGender.bind(this);
     this.updateLocation = this.updateLocation.bind(this);
     this.updateSize = this.updateSize.bind(this);
     this.updateRequest = this.updateRequest.bind(this);
+    this.changeUpdateButton = this.changeUpdateButton.bind(this);
   }
 
+  changeUpdateButton() {
+    return this.state.update ? title = "Updated" : title = "Update"
+  }
+
+
   updateRequest() {
-    let {maxDistance, preferredSize, preferredGender} = this.state
+    let { maxDistance, preferredSize, preferredGender } = this.state
     let id = this.props.user.id;
     console.log(this.props)
     axios
-      .put(`http://localhost:3000/api/gabi/update/${id}`, {maxDistance, preferredSize, preferredGender})
-      .then((data) => {
-        console.log("axios data : " , data)
-      })
+      .put(`http://localhost:3000/api/gabi/update/${id}`, { maxDistance, preferredSize, preferredGender })
+      .then(() => this.setState({
+        updated: !this.state.updated
+      }))
       .catch(err => console.error(err))
   }
 
@@ -53,58 +60,61 @@ export default class Setting extends React.Component {
   }
 
   render() {
-    let gender = ["Male", "Female", "No Preference"]; 
+    let gender = ["Male", "Female", "No Preference"];
     let location = [5, 10, 15, 100];
     let dogsize = ["Small", "Medium", "Large"];
 
     return (
       <View >
-        {/* <View style={styles.container}> */}
-        <Text style={styles.filterText}>Filter By </Text>
-        
+        <Text style={styles.title} >Filter By </Text>
+
         <View style={styles.topBorder}></View>
 
         <View style={styles.container}>
-          <Text style={styles.text} onPress={() => this.setState({genderpicker: !this.state.genderpicker})}>Preferred Animal Gender 
-            <Text>{this.state.preferredGender}</Text>
-          </Text>
+          <Text style={styles.filters} onPress={() => this.setState({ genderpicker: !this.state.genderpicker })}>Preferred Animal Gender </Text>
+          <Text style={styles.answers}>{this.state.preferredGender}</Text>
 
-        <Modal visible={this.state.genderpicker} transparent={true} >
-        <View style={styles.modalcontainer}>
-          {gender.map((sex, index) => {
-            return <TouchableHighlight onPress={() => this.updateGender(sex)} key={index} style={styles.selection}>
-            <Text>{sex}</Text>
-            </TouchableHighlight>
-          })}
-        </View>
-        </Modal>
+          <Modal animationType='slide' visible={this.state.genderpicker} transparent={true} >
+            <View style={styles.modalcontainer}>
+              {gender.map((sex, index) => {
+                return <TouchableHighlight onPress={() => this.updateGender(sex)} key={index} style={styles.modalChoicesBox}>
+                  <Text style={styles.choices}>{sex}</Text>
+                </TouchableHighlight>
+              })}
+            </View>
+          </Modal>
 
 
-        <Text style={styles.text} onPress={() => this.setState({locationpicker: !this.state.locationpicker})}>Maximum Location Radius: {this.state.maxDistance} miles</Text>
-        <Modal style={styles.locationContainer} visible={this.state.locationpicker} transparent={true} >
-        <View style={styles.modalcontainer}>
-          {location.map((selection, index) => {
-            return <TouchableHighlight onPress={() => this.updateLocation(selection)} key={index} style={styles.selection}>
-            <Text>{selection}</Text>
-            </TouchableHighlight>
-          })}
-        </View>
-        </Modal> 
+          <Text style={styles.filters} onPress={() => this.setState({ locationpicker: !this.state.locationpicker })}>Maximum Location Radius: </Text>
+          <Text style={styles.answers}>{this.state.maxDistance} miles </Text>
 
-        <Text style={styles.text} onPress={() => this.setState({dogsizepicker: !this.state.dogsizepicker})}>Preferred Animal Size: {this.state.preferredSize}</Text>
-        <Modal visible={this.state.dogsizepicker} transparent={true} style={styles.locationContainer}>
-        <View style={styles.modalcontainer}>
-          {dogsize.map((size, index) => {
-            return <TouchableHighlight onPress={() => this.updateSize(size)} key={index} style={styles.selection}>
-              <Text> {size} </Text>
-            </TouchableHighlight>
-          })}
+          <Modal animationType='slide' visible={this.state.locationpicker} transparent={true} >
+            <View style={styles.modalcontainer}>
+              {location.map((selection, index) => {
+                return <TouchableHighlight onPress={() => this.updateLocation(selection)} key={index} style={styles.modalChoicesBox}>
+                  <Text style={styles.choices}>{selection}</Text>
+                </TouchableHighlight>
+              })}
+            </View>
+          </Modal>
+
+          <Text style={styles.filters} onPress={() => this.setState({ dogsizepicker: !this.state.dogsizepicker })}>Preferred Animal Size: </Text>
+          <Text style={styles.answers}>{this.state.preferredSize}</Text>
+          <Modal animationType="slide" visible={this.state.dogsizepicker} transparent={true}>
+            <View style={styles.modalcontainer}>
+              {dogsize.map((size, index) => {
+                return <TouchableHighlight onPress={() => this.updateSize(size)} key={index} style={styles.modalChoicesBox}>
+                  <Text style={styles.choices}> {size} </Text>
+                </TouchableHighlight>
+              })}
+            </View>
+          </Modal>
+
+          <View style={styles.updateButton}>
+            <Button onPress={() => this.updateRequest()} title={`${!this.state.updated ? "Update" : "Updated"}`} />
           </View>
-        </Modal> 
 
-        <Button onPress={() => this.updateRequest()} title="Update"/>
         </View>
-        {/* </View> */}
       </View >
     );
   }
@@ -112,14 +122,13 @@ export default class Setting extends React.Component {
 
 const styles = StyleSheet.create({
   topBorder: {
-
-    borderBottomColor: '#c9c9c9',
-    borderBottomWidth: 4, 
+    borderColor: '#c9c9c9',
+    borderBottomWidth: 2, 
   },
-  filterText: {
+  title: {
     fontFamily: "GillSans",
     fontSize: 30,
-    padding: 15,
+    padding: 10,
     fontWeight: '500',
     color: '#3EC1E1'
   },
@@ -128,29 +137,48 @@ const styles = StyleSheet.create({
     borderColor: "#efefef"
   },
   container: {
-    backgroundColor: '#efefef'
+    backgroundColor: '#efefef',
+    height: '100%',
+    padding: 20
   },
-  text: {
-    // marginTop: 10,
-    margin: 20,
+  filters: {
+    marginTop: 25,
     fontSize: 15,
     fontWeight: 'bold',
+    paddingBottom: 10
+  },
+  answers: {
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 10,
+    paddingRight: 30,
+    backgroundColor: 'white'
   },
   modalcontainer: {
-    // flex: 1,
-    // flexDirection: 'row',
-    marginTop: 100,
-    height: 100,
-    // width: '70%',
-    marginLeft: 40,
+    // marginTop: 100,
+    paddingLeft: 20,
+    paddingRight: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 500
+    paddingTop: 500,
+
   },
-  selection: {
-    height: 30,
-    width: 100,
-    backgroundColor: '#efefef',
-    alignSelf: 'center'
+  modalChoicesBox: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#3EC1E1',
+    borderStyle: 'solid',
+
   },
+  choices: {
+    height: 60,
+    width: 336,
+    backgroundColor: 'white',
+    paddingLeft: 20,
+    paddingTop: 15,
+    textAlign: 'center',
+
+  },
+  updateButton: {
+    marginTop: 90
+  }
 })
