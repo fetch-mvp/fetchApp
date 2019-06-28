@@ -10,7 +10,7 @@ export default class Main extends React.Component {
     super(props)
     this.state={
       user: {}, // Calvin: looks like it doesn't do anything?
-      route: 'match', //'setting', 'bio', 'swipe', 'detail', 'match', 'chat'
+      route: 'bio', //'setting', 'bio', 'swipe', 'detail', 'match', 'chat'
       interestedDog: {},
       userinfo: [],
       allusers: [],
