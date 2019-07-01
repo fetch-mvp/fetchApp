@@ -1,14 +1,6 @@
 const routes = require('express').Router()
 const Fetch = require('../../database/models')
 
-/*
-AWS Info
-Access Key ID : AKIAJFTGRSGXNRB5P2QQ
-Secret Access Key : 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
-region=us-east-1
-jamesfetch
-*/
-
 routes.get('/', (req,res)=> {
 	const { id } = req.query
 	Fetch.findOne({ "id": Number(id) })
